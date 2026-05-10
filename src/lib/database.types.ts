@@ -1,3 +1,11 @@
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
+
 export type Database = {
   public: {
     Tables: {
@@ -20,6 +28,7 @@ export type Database = {
           username?: string
           avatar_url?: string | null
         }
+        Relationships: []
       }
       groups: {
         Row: {
@@ -39,6 +48,7 @@ export type Database = {
         Update: {
           name?: string
         }
+        Relationships: []
       }
       group_members: {
         Row: {
@@ -54,6 +64,7 @@ export type Database = {
           joined_at?: string
         }
         Update: Record<string, never>
+        Relationships: []
       }
       matches: {
         Row: {
@@ -67,6 +78,7 @@ export type Database = {
           away_score: number | null
           is_finished: boolean
           venue: string | null
+          created_at: string
         }
         Insert: {
           id?: string
@@ -79,6 +91,7 @@ export type Database = {
           away_score?: number | null
           is_finished?: boolean
           venue?: string | null
+          created_at?: string
         }
         Update: {
           home_team?: string
@@ -91,6 +104,7 @@ export type Database = {
           is_finished?: boolean
           venue?: string | null
         }
+        Relationships: []
       }
       predictions: {
         Row: {
@@ -118,12 +132,16 @@ export type Database = {
           away_score?: number
           points?: number | null
         }
+        Relationships: []
       }
+    }
+    Views: {
+      [_ in never]: never
     }
     Functions: {
       calculate_prediction_points: {
         Args: { p_match_id: string }
-        Returns: void
+        Returns: undefined
       }
       get_leaderboard: {
         Args: { p_group_id: string }
@@ -137,6 +155,23 @@ export type Database = {
           total_predictions: number
         }[]
       }
+      is_current_user_admin: {
+        Args: Record<string, never>
+        Returns: boolean
+      }
+    }
+    Enums: {
+      match_phase:
+        | 'group_stage'
+        | 'round_of_32'
+        | 'round_of_16'
+        | 'quarterfinal'
+        | 'semifinal'
+        | 'third_place'
+        | 'final'
+    }
+    CompositeTypes: {
+      [_ in never]: never
     }
   }
 }
