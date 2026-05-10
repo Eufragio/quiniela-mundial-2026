@@ -3,7 +3,6 @@ import { Shield, Filter } from 'lucide-react'
 import { useMatches } from '@/hooks/useMatches'
 import { getPhaseLabel } from '@/lib/utils'
 import { Card } from '@/components/ui/Card'
-import { Badge } from '@/components/ui/Badge'
 import { AdminMatchRow } from '@/features/admin/components/AdminMatchRow'
 import type { Phase } from '@/types'
 

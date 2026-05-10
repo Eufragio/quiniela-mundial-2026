@@ -8,7 +8,7 @@ import { useAuthContext } from '@/features/auth/AuthContext'
 import { MatchCard } from '@/features/matches/components/MatchCard'
 import { Badge } from '@/components/ui/Badge'
 import { Avatar } from '@/components/ui/Avatar'
-import { getPhaseLabel, getPhaseOrder } from '@/lib/utils'
+import { getPhaseLabel } from '@/lib/utils'
 import type { Phase } from '@/types'
 import { LeaderboardPage } from '@/features/leaderboard/pages/LeaderboardPage'
 
