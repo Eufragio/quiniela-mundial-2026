@@ -48,7 +48,15 @@ export type Database = {
         Update: {
           name?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: 'groups_created_by_fkey'
+            columns: ['created_by']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
       }
       group_members: {
         Row: {
@@ -64,7 +72,22 @@ export type Database = {
           joined_at?: string
         }
         Update: Record<string, never>
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: 'group_members_group_id_fkey'
+            columns: ['group_id']
+            isOneToOne: false
+            referencedRelation: 'groups'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'group_members_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
       }
       matches: {
         Row: {
@@ -132,7 +155,29 @@ export type Database = {
           away_score?: number
           points?: number | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: 'predictions_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'predictions_match_id_fkey'
+            columns: ['match_id']
+            isOneToOne: false
+            referencedRelation: 'matches'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'predictions_group_id_fkey'
+            columns: ['group_id']
+            isOneToOne: false
+            referencedRelation: 'groups'
+            referencedColumns: ['id']
+          },
+        ]
       }
     }
     Views: {
