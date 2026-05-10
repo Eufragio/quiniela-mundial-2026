@@ -41,7 +41,11 @@ export function CreateGroupModal({ open, onClose }: Props) {
           {...register('name')}
         />
         {createGroup.error && (
-          <p className="text-sm text-red-400">{String(createGroup.error)}</p>
+          <p className="text-sm text-red-400">
+            {createGroup.error instanceof Error
+              ? createGroup.error.message
+              : JSON.stringify(createGroup.error)}
+          </p>
         )}
         <div className="flex gap-3">
           <Button type="button" variant="ghost" fullWidth onClick={onClose}>
