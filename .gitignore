@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Capturas locales (no se suben al repo público)
+captures/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
