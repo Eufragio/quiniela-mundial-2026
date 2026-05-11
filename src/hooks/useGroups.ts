@@ -88,20 +88,25 @@ export function useJoinGroup() {
     mutationFn: async (inviteCode: string) => {
       if (!user) throw new Error('Not authenticated')
 
-      const { data: group, error: findError } = await supabase
+      const { data: groupId, error } = await supabase
+        .rpc('join_group_by_code', { p_code: inviteCode.toUpperCase() })
+
+      if (error) {
+        if (error.message.includes('invalid_code')) {
+          throw new Error('Código de invitación inválido')
+        }
+        if (error.message.includes('not_authenticated')) {
+          throw new Error('Sesión expirada, volvé a iniciar')
+        }
+        throw error
+      }
+
+      const { data: group, error: groupError } = await supabase
         .from('groups')
         .select('*')
-        .eq('invite_code', inviteCode.toUpperCase())
+        .eq('id', groupId)
         .single()
-      if (findError) throw new Error('Código de invitación inválido')
-
-      const { error: joinError } = await supabase
-        .from('group_members')
-        .insert({ group_id: group.id, user_id: user.id })
-      if (joinError) {
-        if (joinError.code === '23505') throw new Error('Ya sos miembro de esta quiniela')
-        throw joinError
-      }
+      if (groupError) throw groupError
 
       return group as Group
     },

@@ -204,6 +204,14 @@ export type Database = {
         Args: Record<string, never>
         Returns: boolean
       }
+      is_user_in_group: {
+        Args: { p_group_id: string }
+        Returns: boolean
+      }
+      join_group_by_code: {
+        Args: { p_code: string }
+        Returns: string
+      }
     }
     Enums: {
       match_phase:
