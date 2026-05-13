@@ -88,22 +88,22 @@ export function getInitials(name: string): string {
 
 export function getFlagEmoji(teamName: string): string {
   const flags: Record<string, string> = {
-    'Argentina': '🇦🇷', 'Australia': '🇦🇺', 'Austria': '🇦🇹',
-    'Belgium': '🇧🇪', 'Brazil': '🇧🇷', 'Cameroon': '🇨🇲',
-    'Canada': '🇨🇦', 'Chile': '🇨🇱', 'China PR': '🇨🇳',
-    'Colombia': '🇨🇴', 'Croatia': '🇭🇷', 'Denmark': '🇩🇰',
-    'Ecuador': '🇪🇨', 'Egypt': '🇪🇬', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-    'France': '🇫🇷', 'Germany': '🇩🇪', 'Ghana': '🇬🇭',
-    'Honduras': '🇭🇳', 'Iran': '🇮🇷', 'Iraq': '🇮🇶',
-    'Italy': '🇮🇹', 'Jamaica': '🇯🇲', 'Japan': '🇯🇵',
-    'Jordan': '🇯🇴', 'Mexico': '🇲🇽', 'Morocco': '🇲🇦',
-    'Netherlands': '🇳🇱', 'New Zealand': '🇳🇿', 'Nigeria': '🇳🇬',
-    'Panama': '🇵🇦', 'Poland': '🇵🇱', 'Portugal': '🇵🇹',
-    'Qatar': '🇶🇦', 'Saudi Arabia': '🇸🇦', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
-    'Senegal': '🇸🇳', 'Serbia': '🇷🇸', 'South Africa': '🇿🇦',
-    'South Korea': '🇰🇷', 'Spain': '🇪🇸', 'Switzerland': '🇨🇭',
-    'Tunisia': '🇹🇳', 'Turkey': '🇹🇷', 'Uruguay': '🇺🇾',
-    'USA': '🇺🇸', 'Venezuela': '🇻🇪', 'Algeria': '🇩🇿',
+    'Algeria': '🇩🇿', 'Argentina': '🇦🇷', 'Australia': '🇦🇺',
+    'Austria': '🇦🇹', 'Belgium': '🇧🇪', 'Bosnia and Herzegovina': '🇧🇦',
+    'Brazil': '🇧🇷', 'Cabo Verde': '🇨🇻', 'Canada': '🇨🇦',
+    'Colombia': '🇨🇴', 'Congo DR': '🇨🇩', 'Croatia': '🇭🇷',
+    'Curaçao': '🇨🇼', 'Czech Republic': '🇨🇿', 'Ecuador': '🇪🇨',
+    'Egypt': '🇪🇬', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'France': '🇫🇷',
+    'Germany': '🇩🇪', 'Ghana': '🇬🇭', 'Haiti': '🇭🇹',
+    'Iran': '🇮🇷', 'Iraq': '🇮🇶', 'Ivory Coast': '🇨🇮',
+    'Japan': '🇯🇵', 'Jordan': '🇯🇴', 'Mexico': '🇲🇽',
+    'Morocco': '🇲🇦', 'Netherlands': '🇳🇱', 'New Zealand': '🇳🇿',
+    'Norway': '🇳🇴', 'Panama': '🇵🇦', 'Paraguay': '🇵🇾',
+    'Portugal': '🇵🇹', 'Qatar': '🇶🇦', 'Saudi Arabia': '🇸🇦',
+    'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿', 'Senegal': '🇸🇳', 'South Africa': '🇿🇦',
+    'South Korea': '🇰🇷', 'Spain': '🇪🇸', 'Sweden': '🇸🇪',
+    'Switzerland': '🇨🇭', 'Tunisia': '🇹🇳', 'Turkey': '🇹🇷',
+    'Uruguay': '🇺🇾', 'USA': '🇺🇸', 'Uzbekistan': '🇺🇿',
   }
   return flags[teamName] ?? '🏳️'
 }
