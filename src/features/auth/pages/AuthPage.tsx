@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Navigate, useLocation } from 'react-router-dom'
+import { Navigate, useLocation, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -197,6 +197,13 @@ export function AuthPage() {
           </form>
         )}
       </div>
+
+      <Link
+        to="/privacy"
+        className="mt-6 text-xs text-gray-600 transition-colors hover:text-gray-400"
+      >
+        Política de privacidad
+      </Link>
     </div>
   )
 }
