@@ -145,22 +145,26 @@ Archivo: `.env.local` en la raíz del proyecto (NO commitear).
 - **No comentarios** en el código salvo que el WHY sea no obvio
 - **Naming**: hooks en `useXxx.ts`, páginas en `XxxPage.tsx`, componentes en PascalCase
 
-## Grupos del Mundial 2026 (seed)
+## Grupos oficiales del Mundial 2026
+
+Sorteo oficial del 5 de diciembre de 2025 + UEFA playoffs (31 mar 2026) + Inter-Confederation. Datos cargados vía `supabase/migrations/00006_update_group_stage.sql`.
 
 ```
-A: USA, France, Cameroon, Japan
-B: Mexico, Germany, Morocco, South Korea
-C: Canada, England, Senegal, Iran
-D: Brazil, Spain, Nigeria, Australia
-E: Argentina, Netherlands, Egypt, Ecuador
-F: Portugal, Italy, Tunisia, Saudi Arabia
-G: Colombia, Croatia, Algeria, Poland
-H: Uruguay, Belgium, Ghana, Turkey
-I: Switzerland, Chile, South Africa, Qatar
-J: Denmark, Panama, Iraq, New Zealand
-K: Austria, Honduras, Jamaica, China PR
-L: Serbia, Venezuela, Jordan, Scotland
+A: Mexico, South Africa, South Korea, Czech Republic
+B: Canada, Bosnia and Herzegovina, Qatar, Switzerland
+C: Brazil, Morocco, Haiti, Scotland
+D: USA, Paraguay, Australia, Turkey
+E: Germany, Curaçao, Ivory Coast, Ecuador
+F: Netherlands, Japan, Sweden, Tunisia
+G: Belgium, Egypt, Iran, New Zealand
+H: Spain, Cabo Verde, Saudi Arabia, Uruguay
+I: France, Senegal, Norway, Iraq
+J: Argentina, Algeria, Austria, Jordan
+K: Portugal, Uzbekistan, Colombia, Congo DR
+L: England, Croatia, Ghana, Panama
 ```
+
+Fuente de verdad: la migration `00006` (también reflejada en `supabase/seed.sql` para setup desde cero).
 
 ## Comandos útiles
 
