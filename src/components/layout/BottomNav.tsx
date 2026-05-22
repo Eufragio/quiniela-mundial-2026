@@ -1,16 +1,18 @@
 import { NavLink, useParams } from 'react-router-dom'
 import { LayoutDashboard, Trophy, List } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 
 export function BottomNav() {
   const { groupId } = useParams()
+  const { t } = useTranslation()
 
   const navItems = [
-    { to: '/dashboard', icon: LayoutDashboard, label: 'Mis Quinielas' },
+    { to: '/dashboard', icon: LayoutDashboard, label: t('nav.home') },
     ...(groupId
       ? [
-          { to: `/groups/${groupId}`, icon: List, label: 'Partidos' },
-          { to: `/groups/${groupId}/leaderboard`, icon: Trophy, label: 'Posiciones' },
+          { to: `/groups/${groupId}`, icon: List, label: t('nav.matches') },
+          { to: `/groups/${groupId}/leaderboard`, icon: Trophy, label: t('nav.leaderboard') },
         ]
       : []),
   ]

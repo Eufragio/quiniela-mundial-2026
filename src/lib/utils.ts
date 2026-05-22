@@ -1,29 +1,40 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { format, formatDistanceToNow, isPast, isFuture } from 'date-fns'
-import { es } from 'date-fns/locale'
-import type { Phase } from '@/types'
+import { format, formatDistanceToNow, isPast, isFuture, type Locale } from 'date-fns'
+import { es, enUS } from 'date-fns/locale'
+
+const LOCALES: Record<string, Locale> = { es, en: enUS }
+
+export type DateLang = 'es' | 'en'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatMatchDate(dateStr: string): string {
-  const date = new Date(dateStr)
-  return format(date, "EEEE d 'de' MMMM · HH:mm", { locale: es })
+function resolveLocale(lang: DateLang | string): Locale {
+  return LOCALES[lang] ?? es
 }
 
-export function formatMatchDateShort(dateStr: string): string {
+export function formatMatchDate(dateStr: string, lang: DateLang | string = 'es'): string {
   const date = new Date(dateStr)
-  return format(date, 'd MMM · HH:mm', { locale: es })
-}
-
-export function formatRelativeTime(dateStr: string): string {
-  const date = new Date(dateStr)
-  if (isPast(date)) {
-    return formatDistanceToNow(date, { addSuffix: true, locale: es })
+  const locale = resolveLocale(lang)
+  if (lang === 'en') {
+    return format(date, "EEEE, MMMM d · h:mm a", { locale })
   }
-  return formatDistanceToNow(date, { addSuffix: true, locale: es })
+  return format(date, "EEEE d 'de' MMMM · HH:mm", { locale })
+}
+
+export function formatMatchDateShort(dateStr: string, lang: DateLang | string = 'es'): string {
+  const date = new Date(dateStr)
+  const locale = resolveLocale(lang)
+  if (lang === 'en') {
+    return format(date, 'MMM d · h:mm a', { locale })
+  }
+  return format(date, 'd MMM · HH:mm', { locale })
+}
+
+export function formatRelativeTime(dateStr: string, lang: DateLang | string = 'es'): string {
+  return formatDistanceToNow(new Date(dateStr), { addSuffix: true, locale: resolveLocale(lang) })
 }
 
 export function isMatchLocked(matchDate: string): boolean {
@@ -34,21 +45,8 @@ export function isMatchUpcoming(matchDate: string): boolean {
   return isFuture(new Date(matchDate))
 }
 
-export function getPhaseLabel(phase: Phase): string {
-  const labels: Record<Phase, string> = {
-    group_stage: 'Fase de Grupos',
-    round_of_32: 'Ronda de 32',
-    round_of_16: 'Octavos de Final',
-    quarterfinal: 'Cuartos de Final',
-    semifinal: 'Semifinal',
-    third_place: 'Tercer Puesto',
-    final: 'Final',
-  }
-  return labels[phase] ?? phase
-}
-
-export function getPhaseOrder(phase: Phase): number {
-  const order: Record<Phase, number> = {
+export function getPhaseOrder(phase: string): number {
+  const order: Record<string, number> = {
     group_stage: 1,
     round_of_32: 2,
     round_of_16: 3,

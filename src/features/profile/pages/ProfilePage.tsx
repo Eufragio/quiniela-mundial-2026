@@ -1,7 +1,8 @@
+import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useAuthContext } from '@/features/auth/AuthContext'
 import { supabase } from '@/lib/supabase'
 import { Avatar } from '@/components/ui/Avatar'
@@ -10,18 +11,23 @@ import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { CheckCircle } from 'lucide-react'
 
-const schema = z.object({
-  username: z
-    .string()
-    .min(3, 'Mínimo 3 caracteres')
-    .max(20, 'Máximo 20 caracteres')
-    .regex(/^[a-zA-Z0-9_]+$/, 'Solo letras, números y _'),
-})
-type FormData = z.infer<typeof schema>
-
 export function ProfilePage() {
   const { user, profile, refreshProfile } = useAuthContext()
+  const { t } = useTranslation()
   const [success, setSuccess] = useState(false)
+
+  const schema = useMemo(
+    () =>
+      z.object({
+        username: z
+          .string()
+          .min(3, t('profile.errorMin'))
+          .max(20, t('profile.errorMax'))
+          .regex(/^[a-zA-Z0-9_]+$/, t('profile.errorPattern')),
+      }),
+    [t],
+  )
+  type FormData = z.infer<typeof schema>
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -44,10 +50,9 @@ export function ProfilePage() {
 
   return (
     <div className="mx-auto max-w-md px-4 py-6">
-      <h1 className="mb-6 text-2xl font-bold text-gray-100">Mi perfil</h1>
+      <h1 className="mb-6 text-2xl font-bold text-gray-100">{t('profile.title')}</h1>
 
       <Card padding="lg">
-        {/* Avatar */}
         <div className="mb-6 flex flex-col items-center gap-3">
           <Avatar
             username={profile?.username ?? '?'}
@@ -60,11 +65,10 @@ export function ProfilePage() {
           </div>
         </div>
 
-        {/* Edit form */}
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <Input
-            label="Nombre de usuario"
-            placeholder="tu_usuario"
+            label={t('profile.usernameLabel')}
+            placeholder={t('auth.usernamePlaceholder')}
             error={errors.username?.message}
             {...register('username')}
           />
@@ -72,12 +76,12 @@ export function ProfilePage() {
           {success && (
             <div className="flex items-center gap-2 rounded-xl bg-green-500/10 border border-green-500/30 p-3 text-sm text-green-400">
               <CheckCircle size={16} />
-              Perfil actualizado
+              {t('profile.saved')}
             </div>
           )}
 
           <Button type="submit" fullWidth loading={isSubmitting}>
-            Guardar cambios
+            {t('profile.saveButton')}
           </Button>
         </form>
       </Card>

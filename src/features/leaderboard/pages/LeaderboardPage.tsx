@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { useLeaderboard } from '@/hooks/useLeaderboard'
 import { useAuthContext } from '@/features/auth/AuthContext'
 import { Avatar } from '@/components/ui/Avatar'
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export function LeaderboardPage({ groupId }: Props) {
+  const { t } = useTranslation()
   const { data: entries, isLoading } = useLeaderboard(groupId)
   const { user } = useAuthContext()
 
@@ -27,8 +29,8 @@ export function LeaderboardPage({ groupId }: Props) {
     return (
       <div className="rounded-2xl border border-[#2a2a38] bg-[#111117] p-8 text-center">
         <Trophy size={36} className="mx-auto mb-3 text-gray-700" />
-        <p className="text-gray-500">Aún no hay predicciones en esta quiniela</p>
-        <p className="mt-1 text-sm text-gray-600">Hacé tus pronósticos en la pestaña Partidos</p>
+        <p className="text-gray-500">{t('leaderboard.emptyTitle')}</p>
+        <p className="mt-1 text-sm text-gray-600">{t('leaderboard.emptyHelp')}</p>
       </div>
     )
   }
@@ -51,65 +53,57 @@ export function LeaderboardPage({ groupId }: Props) {
                 : 'border-[#2a2a38] bg-[#111117]',
             )}
           >
-            {/* Rank */}
             <div className="flex w-7 shrink-0 justify-center">
               {rank <= 3 ? (
-                <Trophy
-                  size={18}
-                  className={cn(top3Colors[rank - 1])}
-                />
+                <Trophy size={18} className={cn(top3Colors[rank - 1])} />
               ) : (
                 <span className="text-sm font-bold text-gray-600">{rank}</span>
               )}
             </div>
 
-            {/* Avatar */}
             <Avatar
               username={entry.username}
               avatarUrl={entry.avatar_url}
               size="sm"
             />
 
-            {/* Name */}
             <div className="flex-1 min-w-0">
               <p className={cn('truncate text-sm font-medium', isMe ? 'text-green-400' : 'text-gray-200')}>
-                {entry.username} {isMe && '(vos)'}
+                {entry.username} {isMe && t('leaderboard.youTag')}
               </p>
               <div className="mt-0.5 flex items-center gap-2">
                 <span className="flex items-center gap-1 text-xs text-gray-600">
                   <Star size={11} className="text-yellow-500" />
-                  {entry.exact_results} exactos
+                  {t('leaderboard.exactCount', { count: entry.exact_results })}
                 </span>
                 <span className="flex items-center gap-1 text-xs text-gray-600">
                   <CheckCircle size={11} className="text-blue-400" />
-                  {entry.correct_results} correctos
+                  {t('leaderboard.correctCount', { count: entry.correct_results })}
                 </span>
               </div>
             </div>
 
-            {/* Points */}
             <div className="text-right">
               <p className={cn('text-xl font-bold', isMe ? 'text-green-400' : 'text-gray-100')}>
                 {Number(entry.total_points)}
               </p>
-              <p className="text-xs text-gray-600">pts</p>
+              <p className="text-xs text-gray-600">{t('leaderboard.ptsShort')}</p>
             </div>
           </div>
         )
       })}
 
-      {/* Legend */}
       <div className="mt-4 rounded-xl border border-[#2a2a38] bg-[#111117] p-3">
-        <p className="mb-2 text-xs font-medium text-gray-500 uppercase">Sistema de puntuación</p>
+        <p className="mb-2 text-xs font-medium text-gray-500 uppercase">{t('leaderboard.legendTitle')}</p>
         <div className="flex flex-wrap gap-3">
           <div className="flex items-center gap-1.5 text-xs text-gray-500">
-            <Badge variant="green" size="sm">3 pts</Badge> Resultado exacto
+            <Badge variant="green" size="sm">{t('leaderboard.ptsExact')}</Badge> {t('leaderboard.legendExact')}
           </div>
           <div className="flex items-center gap-1.5 text-xs text-gray-500">
-            <Badge variant="yellow" size="sm">1 pt</Badge> Ganador correcto
+            <Badge variant="yellow" size="sm">{t('leaderboard.ptsCorrect')}</Badge> {t('leaderboard.legendCorrect')}
           </div>
           <div className="flex items-center gap-1.5 text-xs text-gray-500">
-            <Badge variant="red" size="sm">0 pts</Badge> Incorrecto
+            <Badge variant="red" size="sm">{t('leaderboard.ptsWrong')}</Badge> {t('leaderboard.legendWrong')}
           </div>
         </div>
       </div>

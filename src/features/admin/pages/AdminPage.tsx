@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Shield, Filter } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useMatches } from '@/hooks/useMatches'
-import { getPhaseLabel } from '@/lib/utils'
 import { Card } from '@/components/ui/Card'
 import { AdminMatchRow } from '@/features/admin/components/AdminMatchRow'
 import type { Phase } from '@/types'
@@ -19,6 +19,7 @@ const PHASES: Phase[] = [
 ]
 
 export function AdminPage() {
+  const { t } = useTranslation()
   const [phase, setPhase] = useState<Phase | 'all'>('all')
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all')
   const { data: matches, isLoading } = useMatches(phase === 'all' ? undefined : phase)
@@ -43,22 +44,22 @@ export function AdminPage() {
           <Shield size={20} />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-gray-100">Panel de admin</h1>
-          <p className="text-xs text-gray-500">Cargá los resultados oficiales del Mundial</p>
+          <h1 className="text-2xl font-bold text-gray-100">{t('admin.title')}</h1>
+          <p className="text-xs text-gray-500">{t('admin.subtitle')}</p>
         </div>
       </div>
 
       <div className="mb-4 grid grid-cols-3 gap-2">
         <Card padding="sm" className="text-center">
-          <p className="text-xs text-gray-500">Total</p>
+          <p className="text-xs text-gray-500">{t('admin.statTotal')}</p>
           <p className="text-xl font-bold text-gray-100">{stats.total}</p>
         </Card>
         <Card padding="sm" className="text-center">
-          <p className="text-xs text-gray-500">Finalizados</p>
+          <p className="text-xs text-gray-500">{t('admin.statFinished')}</p>
           <p className="text-xl font-bold text-green-400">{stats.finished}</p>
         </Card>
         <Card padding="sm" className="text-center">
-          <p className="text-xs text-gray-500">Pendientes</p>
+          <p className="text-xs text-gray-500">{t('admin.statPending')}</p>
           <p className="text-xl font-bold text-yellow-400">{stats.pending}</p>
         </Card>
       </div>
@@ -66,16 +67,16 @@ export function AdminPage() {
       <div className="mb-4 space-y-2">
         <div className="flex items-center gap-2 text-xs text-gray-500">
           <Filter size={12} />
-          <span>Filtros</span>
+          <span>{t('admin.filters')}</span>
         </div>
 
         <div className="flex flex-wrap gap-1.5">
           <FilterChip active={phase === 'all'} onClick={() => setPhase('all')}>
-            Todas las fases
+            {t('admin.allPhases')}
           </FilterChip>
           {PHASES.map((p) => (
             <FilterChip key={p} active={phase === p} onClick={() => setPhase(p)}>
-              {getPhaseLabel(p)}
+              {t(`phases.${p}`)}
             </FilterChip>
           ))}
         </div>
@@ -86,21 +87,21 @@ export function AdminPage() {
             onClick={() => setStatusFilter('all')}
             tone="neutral"
           >
-            Todos
+            {t('admin.allStatus')}
           </FilterChip>
           <FilterChip
             active={statusFilter === 'pending'}
             onClick={() => setStatusFilter('pending')}
             tone="yellow"
           >
-            Pendientes
+            {t('admin.statPending')}
           </FilterChip>
           <FilterChip
             active={statusFilter === 'finished'}
             onClick={() => setStatusFilter('finished')}
             tone="green"
           >
-            Finalizados
+            {t('admin.statFinished')}
           </FilterChip>
         </div>
       </div>
@@ -111,7 +112,7 @@ export function AdminPage() {
         </div>
       ) : filtered.length === 0 ? (
         <Card padding="md" className="text-center">
-          <p className="text-sm text-gray-500">No hay partidos con esos filtros.</p>
+          <p className="text-sm text-gray-500">{t('admin.noResults')}</p>
         </Card>
       ) : (
         <div className="space-y-3">

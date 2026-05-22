@@ -1,8 +1,13 @@
 import { Link } from 'react-router-dom'
 import { ShieldCheck, ArrowLeft } from 'lucide-react'
+import { useTranslation, Trans } from 'react-i18next'
 import { Button } from '@/components/ui/Button'
 
+const CONTACT_EMAIL = 'eufragio.marco@gmail.com'
+
 export function PrivacyPage() {
+  const { t } = useTranslation()
+
   return (
     <div className="min-h-screen bg-[#0a0a0e] px-4 py-8">
       <div className="mx-auto max-w-2xl">
@@ -11,7 +16,7 @@ export function PrivacyPage() {
           className="mb-6 inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-300"
         >
           <ArrowLeft size={14} />
-          Volver
+          {t('common.back')}
         </Link>
 
         <div className="mb-8 flex items-start gap-4">
@@ -19,116 +24,72 @@ export function PrivacyPage() {
             <ShieldCheck size={24} />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-gray-100">Política de privacidad</h1>
-            <p className="mt-1 text-sm text-gray-500">Última actualización: 22 de mayo de 2026</p>
+            <h1 className="text-2xl font-bold text-gray-100">{t('privacy.title')}</h1>
+            <p className="mt-1 text-sm text-gray-500">{t('privacy.lastUpdate')}</p>
           </div>
         </div>
 
         <div className="space-y-6 rounded-2xl border border-[#2a2a38] bg-[#111117] p-6 text-sm leading-relaxed text-gray-300">
-          <p className="text-gray-400">
-            Esta app es un proyecto personal sin fines de lucro para que un grupo de amigos
-            compita prediciendo los resultados del Mundial 2026. Queremos ser claros y honestos
-            sobre qué datos tuyos guardamos y por qué.
-          </p>
+          <p className="text-gray-400">{t('privacy.intro')}</p>
 
-          <Section title="Qué datos guardamos">
+          <Section title={t('privacy.section1Title')}>
             <ul className="list-disc space-y-1 pl-5">
-              <li>
-                <span className="text-gray-100">Email</span>: necesario para crear tu cuenta,
-                iniciar sesión y enviarte el correo de verificación.
-              </li>
-              <li>
-                <span className="text-gray-100">Nombre de usuario</span>: el que elegís al
-                registrarte. Se muestra al resto de participantes en las quinielas en las que
-                estés.
-              </li>
-              <li>
-                <span className="text-gray-100">Contraseña</span>: la guardamos cifrada (hash).
-                Ni siquiera nosotros la podemos ver en claro.
-              </li>
-              <li>
-                <span className="text-gray-100">Predicciones y resultados</span>: cada
-                pronóstico que cargás, junto con los puntos que te suma.
-              </li>
-              <li>
-                <span className="text-gray-100">Quinielas en las que participás</span>: los
-                grupos a los que te uniste o creaste.
-              </li>
+              <li>{t('privacy.section1Email')}</li>
+              <li>{t('privacy.section1Username')}</li>
+              <li>{t('privacy.section1Password')}</li>
+              <li>{t('privacy.section1Predictions')}</li>
+              <li>{t('privacy.section1Groups')}</li>
             </ul>
-            <p className="mt-3 text-gray-500">
-              <span className="text-gray-300">No guardamos</span>: ubicación, número de
-              teléfono, datos de pago, ni información personal adicional. No usamos Google
-              Analytics ni otros servicios de tracking.
-            </p>
+            <p className="mt-3 text-gray-500">{t('privacy.section1Note')}</p>
           </Section>
 
-          <Section title="Para qué los usamos">
-            <p>
-              Únicamente para que la app funcione: autenticarte, mostrar tus predicciones,
-              calcular tu posición en el ranking y notificarte vía email lo relacionado con tu
-              cuenta (verificación, recuperación de contraseña).
-            </p>
-            <p className="mt-2 text-gray-500">No te mandamos publicidad ni newsletters.</p>
+          <Section title={t('privacy.section2Title')}>
+            <p>{t('privacy.section2Body')}</p>
+            <p className="mt-2 text-gray-500">{t('privacy.section2Note')}</p>
           </Section>
 
-          <Section title="Quién más ve tus datos">
-            <p>
-              Usamos dos proveedores técnicos para hacer correr la app:
-            </p>
+          <Section title={t('privacy.section3Title')}>
+            <p>{t('privacy.section3Intro')}</p>
             <ul className="mt-2 list-disc space-y-1 pl-5">
-              <li>
-                <span className="text-gray-100">Supabase</span> (Estados Unidos): guarda la base
-                de datos, la autenticación y maneja los emails de verificación.
-              </li>
-              <li>
-                <span className="text-gray-100">Vercel</span> (Estados Unidos): sirve el sitio
-                web.
-              </li>
+              <li>{t('privacy.section3Supabase')}</li>
+              <li>{t('privacy.section3Vercel')}</li>
             </ul>
-            <p className="mt-3 text-gray-500">
-              No compartimos tus datos con anunciantes, terceros, ni nadie fuera de los
-              proveedores técnicos necesarios.
-            </p>
+            <p className="mt-3 text-gray-500">{t('privacy.section3Note')}</p>
           </Section>
 
-          <Section title="Cuánto tiempo los guardamos">
-            <p>
-              Mientras tengas tu cuenta activa. Si pedís borrado, los eliminamos. No hay un
-              borrado automático por inactividad — pero si querés desaparecer, basta con
-              avisarnos.
-            </p>
+          <Section title={t('privacy.section4Title')}>
+            <p>{t('privacy.section4Body')}</p>
           </Section>
 
-          <Section title="Tus derechos">
-            <p>
-              Podés pedir en cualquier momento:
-            </p>
+          <Section title={t('privacy.section5Title')}>
+            <p>{t('privacy.section5Intro')}</p>
             <ul className="mt-2 list-disc space-y-1 pl-5">
-              <li>Ver qué datos tuyos tenemos.</li>
-              <li>Cambiar tu username o email.</li>
-              <li>Borrar tu cuenta y todos los datos asociados.</li>
-              <li>Exportar tus predicciones.</li>
+              <li>{t('privacy.section5Right1')}</li>
+              <li>{t('privacy.section5Right2')}</li>
+              <li>{t('privacy.section5Right3')}</li>
+              <li>{t('privacy.section5Right4')}</li>
             </ul>
           </Section>
 
-          <Section title="Cómo nos contactás">
+          <Section title={t('privacy.section6Title')}>
             <p>
-              Escribinos a{' '}
-              <a
-                href="mailto:eufragio.marco@gmail.com"
-                className="text-green-400 underline-offset-2 hover:underline"
-              >
-                eufragio.marco@gmail.com
-              </a>
-              . Es el mail del responsable del proyecto. Respondemos lo más rápido que podamos.
+              <Trans
+                i18nKey="privacy.section6Body"
+                values={{ email: CONTACT_EMAIL }}
+                components={{
+                  mail: (
+                    <a
+                      href={`mailto:${CONTACT_EMAIL}`}
+                      className="text-green-400 underline-offset-2 hover:underline"
+                    />
+                  ),
+                }}
+              />
             </p>
           </Section>
 
-          <Section title="Cookies">
-            <p>
-              Solo usamos las cookies de sesión que pone Supabase para mantenerte autenticado.
-              No usamos cookies de tracking, publicidad ni de terceros.
-            </p>
+          <Section title={t('privacy.section7Title')}>
+            <p>{t('privacy.section7Body')}</p>
           </Section>
         </div>
 
@@ -136,7 +97,7 @@ export function PrivacyPage() {
           <Link to="/auth">
             <Button variant="secondary">
               <ArrowLeft size={16} />
-              Volver al login
+              {t('privacy.backToLogin')}
             </Button>
           </Link>
         </div>

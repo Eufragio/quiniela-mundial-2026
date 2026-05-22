@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Plus, Users, LogIn, Trophy } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useMyGroups } from '@/hooks/useGroups'
 import { useAuthContext } from '@/features/auth/AuthContext'
 import { Card } from '@/components/ui/Card'
@@ -11,6 +12,7 @@ import { JoinGroupModal } from '../components/JoinGroupModal'
 
 export function DashboardPage() {
   const { profile } = useAuthContext()
+  const { t } = useTranslation()
   const { data: groups, isLoading } = useMyGroups()
   const navigate = useNavigate()
   const [showCreate, setShowCreate] = useState(false)
@@ -18,27 +20,25 @@ export function DashboardPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
-      {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-100">
-            Hola, {profile?.username ?? '👋'}
+            {t('dashboard.greeting', { name: profile?.username ?? '👋' })}
           </h1>
-          <p className="mt-0.5 text-sm text-gray-500">Tus quinielas del Mundial 2026</p>
+          <p className="mt-0.5 text-sm text-gray-500">{t('dashboard.subtitle')}</p>
         </div>
         <div className="flex gap-2">
           <Button size="sm" variant="secondary" onClick={() => setShowJoin(true)}>
             <LogIn size={15} />
-            Unirse
+            {t('dashboard.joinShort')}
           </Button>
           <Button size="sm" onClick={() => setShowCreate(true)}>
             <Plus size={15} />
-            Crear
+            {t('dashboard.createShort')}
           </Button>
         </div>
       </div>
 
-      {/* Groups list */}
       {isLoading ? (
         <div className="space-y-3">
           {[1, 2].map((i) => (
@@ -62,13 +62,14 @@ export function DashboardPage() {
                   <div>
                     <p className="font-semibold text-gray-100">{group.name}</p>
                     <p className="mt-0.5 text-xs text-gray-500">
-                      Código: <span className="font-mono text-gray-400">{group.invite_code}</span>
+                      {t('dashboard.codeLabel')}:{' '}
+                      <span className="font-mono text-gray-400">{group.invite_code}</span>
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   {group.created_by === profile?.id && (
-                    <Badge variant="green">Admin</Badge>
+                    <Badge variant="green">{t('group.admin')}</Badge>
                   )}
                   <Users size={16} className="text-gray-600" />
                 </div>
@@ -79,18 +80,16 @@ export function DashboardPage() {
       ) : (
         <Card padding="lg" className="text-center">
           <Trophy size={40} className="mx-auto mb-3 text-gray-700" />
-          <p className="font-medium text-gray-400">No tenés quinielas todavía</p>
-          <p className="mt-1 text-sm text-gray-600">
-            Creá una o unite a la de un amigo
-          </p>
+          <p className="font-medium text-gray-400">{t('dashboard.emptyTitle')}</p>
+          <p className="mt-1 text-sm text-gray-600">{t('dashboard.emptySubtitle')}</p>
           <div className="mt-4 flex justify-center gap-3">
             <Button variant="secondary" onClick={() => setShowJoin(true)}>
               <LogIn size={15} />
-              Unirse
+              {t('dashboard.joinShort')}
             </Button>
             <Button onClick={() => setShowCreate(true)}>
               <Plus size={15} />
-              Crear quiniela
+              {t('dashboard.createGroup')}
             </Button>
           </div>
         </Card>

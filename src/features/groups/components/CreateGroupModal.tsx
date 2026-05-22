@@ -1,16 +1,13 @@
+import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { Modal } from '@/components/ui/Modal'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 import { useCreateGroup } from '@/hooks/useGroups'
-
-const schema = z.object({
-  name: z.string().min(3, 'Mínimo 3 caracteres').max(40, 'Máximo 40 caracteres'),
-})
-type FormData = z.infer<typeof schema>
 
 interface Props {
   open: boolean
@@ -19,7 +16,21 @@ interface Props {
 
 export function CreateGroupModal({ open, onClose }: Props) {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const createGroup = useCreateGroup()
+
+  const schema = useMemo(
+    () =>
+      z.object({
+        name: z
+          .string()
+          .min(3, t('createGroup.errorMin'))
+          .max(50, t('createGroup.errorMax')),
+      }),
+    [t],
+  )
+  type FormData = z.infer<typeof schema>
+
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormData>({
     resolver: zodResolver(schema),
   })
@@ -32,11 +43,11 @@ export function CreateGroupModal({ open, onClose }: Props) {
   }
 
   return (
-    <Modal open={open} onClose={onClose} title="Crear quiniela">
+    <Modal open={open} onClose={onClose} title={t('createGroup.title')}>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <Input
-          label="Nombre de la quiniela"
-          placeholder="Ej: Los Cracks del Trabajo"
+          label={t('createGroup.nameLabel')}
+          placeholder={t('createGroup.namePlaceholder')}
           error={errors.name?.message}
           {...register('name')}
         />
@@ -49,10 +60,10 @@ export function CreateGroupModal({ open, onClose }: Props) {
         )}
         <div className="flex gap-3">
           <Button type="button" variant="ghost" fullWidth onClick={onClose}>
-            Cancelar
+            {t('common.cancel')}
           </Button>
           <Button type="submit" fullWidth loading={isSubmitting}>
-            Crear
+            {t('createGroup.submit')}
           </Button>
         </div>
       </form>

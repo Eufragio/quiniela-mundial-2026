@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { Lock, Clock, CheckCircle } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import type { Match, Prediction } from '@/types'
-import { cn, formatMatchDateShort, getFlagEmoji, isMatchLocked, calcPredictionPoints } from '@/lib/utils'
+import { cn, getFlagEmoji, isMatchLocked, calcPredictionPoints } from '@/lib/utils'
+import { useFormatDate } from '@/hooks/useFormatDate'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { PredictionInput } from '@/features/predictions/components/PredictionInput'
@@ -13,6 +15,8 @@ interface MatchCardProps {
 }
 
 export function MatchCard({ match, groupId, prediction }: MatchCardProps) {
+  const { t } = useTranslation()
+  const { formatMatchDateShort } = useFormatDate()
   const [showInput, setShowInput] = useState(false)
   const locked = isMatchLocked(match.match_date)
 
@@ -33,11 +37,10 @@ export function MatchCard({ match, groupId, prediction }: MatchCardProps) {
 
   return (
     <Card padding="md" className="select-none">
-      {/* Header */}
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           {match.group_name && (
-            <Badge variant="blue" size="sm">Grupo {match.group_name}</Badge>
+            <Badge variant="blue" size="sm">{t('group.groupLabel')} {match.group_name}</Badge>
           )}
           <span className="text-xs text-gray-600">{formatMatchDateShort(match.match_date)}</span>
         </div>
@@ -51,21 +54,18 @@ export function MatchCard({ match, groupId, prediction }: MatchCardProps) {
           )}
           {pointsEarned !== null && (
             <Badge variant={pointsColor} size="sm">
-              {pointsEarned} pts
+              {t(pointsEarned === 1 ? 'matchCard.pointsOne' : 'matchCard.pointsOther', { count: pointsEarned })}
             </Badge>
           )}
         </div>
       </div>
 
-      {/* Teams + Score */}
       <div className="flex items-center gap-3">
-        {/* Home */}
         <div className="flex flex-1 flex-col items-center gap-1">
           <span className="text-2xl">{getFlagEmoji(match.home_team)}</span>
           <span className="text-center text-xs font-medium text-gray-300">{match.home_team}</span>
         </div>
 
-        {/* Scores */}
         <div className="flex flex-col items-center gap-1">
           {match.is_finished ? (
             <div className="flex items-center gap-2">
@@ -74,10 +74,9 @@ export function MatchCard({ match, groupId, prediction }: MatchCardProps) {
               <span className="text-2xl font-bold text-gray-100">{match.away_score}</span>
             </div>
           ) : (
-            <span className="text-xl font-bold text-gray-600">vs</span>
+            <span className="text-xl font-bold text-gray-600">{t('matchCard.vs')}</span>
           )}
 
-          {/* User's prediction */}
           {prediction && (
             <div
               className={cn(
@@ -91,7 +90,7 @@ export function MatchCard({ match, groupId, prediction }: MatchCardProps) {
                   : 'bg-[#22222e] text-gray-400',
               )}
             >
-              <span>Tu pronóstico:</span>
+              <span>{t('matchCard.yourPrediction')}:</span>
               <span className="font-bold text-gray-200">
                 {prediction.home_score}-{prediction.away_score}
               </span>
@@ -99,14 +98,12 @@ export function MatchCard({ match, groupId, prediction }: MatchCardProps) {
           )}
         </div>
 
-        {/* Away */}
         <div className="flex flex-1 flex-col items-center gap-1">
           <span className="text-2xl">{getFlagEmoji(match.away_team)}</span>
           <span className="text-center text-xs font-medium text-gray-300">{match.away_team}</span>
         </div>
       </div>
 
-      {/* Prediction action */}
       {!locked && !match.is_finished && (
         <div className="mt-3 border-t border-[#2a2a38] pt-3">
           {showInput ? (
@@ -126,13 +123,12 @@ export function MatchCard({ match, groupId, prediction }: MatchCardProps) {
                   : 'bg-green-500/15 text-green-400 hover:bg-green-500/25',
               )}
             >
-              {prediction ? '✏️ Editar pronóstico' : '🎯 Hacer pronóstico'}
+              {prediction ? t('matchCard.editPrediction') : t('matchCard.makePrediction')}
             </button>
           )}
         </div>
       )}
 
-      {/* Venue */}
       {match.venue && (
         <p className="mt-2 text-center text-xs text-gray-700">{match.venue}</p>
       )}

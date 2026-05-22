@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { Share2, Users, Copy, Check, List, Trophy } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useGroup, useGroupMembers } from '@/hooks/useGroups'
 import { useMatches } from '@/hooks/useMatches'
 import { useGroupPredictions } from '@/hooks/usePredictions'
@@ -8,15 +9,24 @@ import { useAuthContext } from '@/features/auth/AuthContext'
 import { MatchCard } from '@/features/matches/components/MatchCard'
 import { Badge } from '@/components/ui/Badge'
 import { Avatar } from '@/components/ui/Avatar'
-import { getPhaseLabel } from '@/lib/utils'
 import type { Phase } from '@/types'
 import { LeaderboardPage } from '@/features/leaderboard/pages/LeaderboardPage'
 
 type Tab = 'matches' | 'leaderboard'
 
+const PHASES: (Phase | 'all')[] = [
+  'group_stage',
+  'round_of_32',
+  'round_of_16',
+  'quarterfinal',
+  'semifinal',
+  'final',
+]
+
 export function GroupPage() {
   const { groupId } = useParams<{ groupId: string }>()
   const { profile } = useAuthContext()
+  const { t } = useTranslation()
   const [tab, setTab] = useState<Tab>('matches')
   const [copied, setCopied] = useState(false)
   const [filterPhase, setFilterPhase] = useState<Phase | 'all'>('group_stage')
@@ -36,8 +46,7 @@ export function GroupPage() {
   if (!group) return <Navigate to="/dashboard" />
 
   const isAdmin = group.created_by === profile?.id
-
-  const inviteUrl = group ? `${window.location.origin}/join/${group.invite_code}` : ''
+  const inviteUrl = `${window.location.origin}/join/${group.invite_code}`
 
   async function copyCode() {
     await navigator.clipboard.writeText(inviteUrl)
@@ -48,8 +57,8 @@ export function GroupPage() {
   async function share() {
     if (navigator.share) {
       await navigator.share({
-        title: `Quiniela: ${group!.name}`,
-        text: `Unite a mi quiniela del Mundial 2026:`,
+        title: t('group.shareTitle', { name: group!.name }),
+        text: t('group.shareText'),
         url: inviteUrl,
       })
     } else {
@@ -57,23 +66,13 @@ export function GroupPage() {
     }
   }
 
-  const phases: { value: Phase | 'all'; label: string }[] = [
-    { value: 'group_stage', label: 'Grupos' },
-    { value: 'round_of_32', label: 'R32' },
-    { value: 'round_of_16', label: 'Octavos' },
-    { value: 'quarterfinal', label: 'Cuartos' },
-    { value: 'semifinal', label: 'Semis' },
-    { value: 'final', label: 'Final' },
-  ]
-
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
-      {/* Group header */}
       <div className="mb-4 flex items-start justify-between">
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-xl font-bold text-gray-100">{group.name}</h1>
-            {isAdmin && <Badge variant="green" size="sm">Admin</Badge>}
+            {isAdmin && <Badge variant="green" size="sm">{t('group.admin')}</Badge>}
           </div>
           <div className="mt-1 flex items-center gap-2">
             <span className="font-mono text-sm text-gray-500">{group.invite_code}</span>
@@ -87,11 +86,10 @@ export function GroupPage() {
           className="flex items-center gap-1.5 rounded-xl bg-[#1a1a22] px-3 py-2 text-xs font-medium text-gray-400 hover:text-gray-200 transition-colors border border-[#2a2a38]"
         >
           <Share2 size={13} />
-          Compartir
+          {t('group.share')}
         </button>
       </div>
 
-      {/* Members strip */}
       {members && members.length > 0 && (
         <div className="mb-4 flex items-center gap-2 overflow-x-auto pb-1">
           <Users size={14} className="shrink-0 text-gray-600" />
@@ -104,11 +102,12 @@ export function GroupPage() {
               />
             </div>
           ))}
-          <span className="text-xs text-gray-600">{members.length} participante{members.length !== 1 ? 's' : ''}</span>
+          <span className="text-xs text-gray-600">
+            {t(members.length === 1 ? 'group.membersOne' : 'group.membersOther', { count: members.length })}
+          </span>
         </div>
       )}
 
-      {/* Main tabs */}
       <div className="mb-4 flex rounded-xl bg-[#111117] border border-[#2a2a38] p-1">
         <button
           onClick={() => setTab('matches')}
@@ -117,7 +116,7 @@ export function GroupPage() {
           }`}
         >
           <List size={15} />
-          Partidos
+          {t('group.matches')}
         </button>
         <button
           onClick={() => setTab('leaderboard')}
@@ -126,7 +125,7 @@ export function GroupPage() {
           }`}
         >
           <Trophy size={15} />
-          Posiciones
+          {t('group.leaderboard')}
         </button>
       </div>
 
@@ -134,9 +133,8 @@ export function GroupPage() {
         <LeaderboardPage groupId={groupId!} />
       ) : (
         <>
-          {/* Phase filter */}
           <div className="mb-4 flex gap-2 overflow-x-auto pb-1">
-            {phases.map(({ value, label }) => (
+            {PHASES.map((value) => (
               <button
                 key={value}
                 onClick={() => setFilterPhase(value)}
@@ -146,12 +144,11 @@ export function GroupPage() {
                     : 'bg-[#111117] text-gray-500 hover:text-gray-300 border border-[#2a2a38]'
                 }`}
               >
-                {label}
+                {t(`phasesShort.${value}`)}
               </button>
             ))}
           </div>
 
-          {/* Matches grouped by date */}
           {matches && matches.length > 0 ? (
             <MatchesByPhase
               matches={matches}
@@ -160,7 +157,7 @@ export function GroupPage() {
             />
           ) : (
             <div className="rounded-2xl border border-[#2a2a38] bg-[#111117] p-8 text-center">
-              <p className="text-gray-500">No hay partidos en esta fase todavía</p>
+              <p className="text-gray-500">{t('group.noMatches')}</p>
             </div>
           )}
         </>
@@ -178,14 +175,14 @@ function MatchesByPhase({
   groupId: string
   predictions: ReturnType<typeof useGroupPredictions>['data']
 }) {
+  const { t } = useTranslation()
   if (!matches) return null
 
-  // Group by phase → group_name for group stage
   const sections = new Map<string, typeof matches>()
   for (const match of matches) {
     const key = match.phase === 'group_stage'
-      ? `Grupo ${match.group_name}`
-      : getPhaseLabel(match.phase as Phase)
+      ? `${t('group.groupLabel')} ${match.group_name}`
+      : t(`phases.${match.phase}`)
     const existing = sections.get(key) ?? []
     existing.push(match)
     sections.set(key, existing)

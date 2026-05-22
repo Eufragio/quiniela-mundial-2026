@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { Check, Save, Lock } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import type { Match } from '@/types'
-import { cn, formatMatchDateShort, getFlagEmoji } from '@/lib/utils'
+import { cn, getFlagEmoji } from '@/lib/utils'
+import { useFormatDate } from '@/hooks/useFormatDate'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { useUpdateMatchResult } from '@/hooks/useMatches'
@@ -11,6 +13,8 @@ interface Props {
 }
 
 export function AdminMatchRow({ match }: Props) {
+  const { t } = useTranslation()
+  const { formatMatchDateShort } = useFormatDate()
   const [home, setHome] = useState<number>(match.home_score ?? 0)
   const [away, setAway] = useState<number>(match.away_score ?? 0)
   const [finished, setFinished] = useState<boolean>(match.is_finished)
@@ -70,17 +74,17 @@ export function AdminMatchRow({ match }: Props) {
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           {match.group_name && (
-            <Badge variant="blue" size="sm">Grupo {match.group_name}</Badge>
+            <Badge variant="blue" size="sm">{t('group.groupLabel')} {match.group_name}</Badge>
           )}
           <span className="text-xs text-gray-600">{formatMatchDateShort(match.match_date)}</span>
         </div>
         {match.is_finished ? (
           <Badge variant="green" size="sm">
             <Lock size={10} className="mr-1" />
-            Finalizado
+            {t('admin.finished')}
           </Badge>
         ) : (
-          <Badge variant="gray" size="sm">Pendiente</Badge>
+          <Badge variant="gray" size="sm">{t('admin.statPending')}</Badge>
         )}
       </div>
 
@@ -92,7 +96,7 @@ export function AdminMatchRow({ match }: Props) {
         </div>
 
         <div className="flex flex-col items-center gap-1">
-          <span className="text-xl font-bold text-gray-600">vs</span>
+          <span className="text-xl font-bold text-gray-600">{t('matchCard.vs')}</span>
         </div>
 
         <div className="flex flex-1 flex-col items-center gap-1">
@@ -111,7 +115,7 @@ export function AdminMatchRow({ match }: Props) {
             onChange={(e) => setFinished(e.target.checked)}
             className="h-4 w-4 rounded border-[#2a2a38] bg-[#22222e] text-green-500 focus:ring-green-500 focus:ring-offset-0"
           />
-          <span>Marcar como finalizado</span>
+          <span>{t('admin.markFinished')}</span>
         </label>
 
         <button
@@ -129,17 +133,17 @@ export function AdminMatchRow({ match }: Props) {
           {update.isPending ? (
             <>
               <span className="h-3 w-3 animate-spin rounded-full border-2 border-white border-t-transparent" />
-              Guardando…
+              {t('admin.saving')}
             </>
           ) : savedFlash ? (
             <>
               <Check size={12} />
-              Guardado
+              {t('admin.saved')}
             </>
           ) : (
             <>
               <Save size={12} />
-              Guardar
+              {t('admin.saveButton')}
             </>
           )}
         </button>
@@ -147,7 +151,7 @@ export function AdminMatchRow({ match }: Props) {
 
       {update.error && (
         <p className="mt-2 text-xs text-red-400">
-          Error: {(update.error as Error).message}
+          {t('common.error')}: {(update.error as Error).message}
         </p>
       )}
     </Card>

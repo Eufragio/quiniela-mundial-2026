@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Check, X } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import type { Match, Prediction } from '@/types'
 import { useSavePrediction } from '@/hooks/usePredictions'
 import { getFlagEmoji } from '@/lib/utils'
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export function PredictionInput({ match, groupId, existing, onDone }: Props) {
+  const { t } = useTranslation()
   const [home, setHome] = useState(existing?.home_score ?? 0)
   const [away, setAway] = useState(existing?.away_score ?? 0)
   const save = useSavePrediction(groupId)
@@ -56,15 +58,13 @@ export function PredictionInput({ match, groupId, existing, onDone }: Props) {
 
   return (
     <div className="flex items-center justify-between gap-2">
-      {/* Home */}
       <div className="flex flex-col items-center gap-1">
         <span className="text-sm">{getFlagEmoji(match.home_team)}</span>
         <ScoreSelector value={home} onChange={setHome} />
       </div>
 
-      {/* Actions */}
       <div className="flex flex-col items-center gap-2">
-        <span className="text-xs text-gray-600">vs</span>
+        <span className="text-xs text-gray-600">{t('matchCard.vs')}</span>
         <div className="flex gap-2">
           <button
             onClick={onDone}
@@ -86,7 +86,6 @@ export function PredictionInput({ match, groupId, existing, onDone }: Props) {
         </div>
       </div>
 
-      {/* Away */}
       <div className="flex flex-col items-center gap-1">
         <span className="text-sm">{getFlagEmoji(match.away_team)}</span>
         <ScoreSelector value={away} onChange={setAway} />
