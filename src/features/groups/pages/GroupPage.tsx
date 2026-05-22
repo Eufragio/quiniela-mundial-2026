@@ -37,8 +37,10 @@ export function GroupPage() {
 
   const isAdmin = group.created_by === profile?.id
 
+  const inviteUrl = group ? `${window.location.origin}/join/${group.invite_code}` : ''
+
   async function copyCode() {
-    await navigator.clipboard.writeText(group!.invite_code)
+    await navigator.clipboard.writeText(inviteUrl)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
@@ -47,8 +49,8 @@ export function GroupPage() {
     if (navigator.share) {
       await navigator.share({
         title: `Quiniela: ${group!.name}`,
-        text: `Unite a mi quiniela del Mundial 2026! Código: ${group!.invite_code}`,
-        url: window.location.href,
+        text: `Unite a mi quiniela del Mundial 2026:`,
+        url: inviteUrl,
       })
     } else {
       copyCode()

@@ -8,6 +8,7 @@ import { DashboardPage } from '@/features/groups/pages/DashboardPage'
 import { GroupPage } from '@/features/groups/pages/GroupPage'
 import { ProfilePage } from '@/features/profile/pages/ProfilePage'
 import { AdminPage } from '@/features/admin/pages/AdminPage'
+import { JoinByLinkPage } from '@/features/groups/pages/JoinByLinkPage'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,6 +49,7 @@ export function App() {
         <AuthProvider>
           <Routes>
             <Route path="/auth" element={<AuthPage />} />
+            <Route path="/join/:code" element={<JoinByLinkPage />} />
             <Route
               element={
                 <RequireAuth>

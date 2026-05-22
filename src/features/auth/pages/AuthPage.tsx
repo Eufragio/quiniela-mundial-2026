@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Trophy } from 'lucide-react'
+import { Trophy, Mail, ArrowLeft } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { useAuthContext } from '../AuthContext'
 import { Button } from '@/components/ui/Button'
@@ -26,16 +26,25 @@ const registerSchema = loginSchema.extend({
 type LoginForm = z.infer<typeof loginSchema>
 type RegisterForm = z.infer<typeof registerSchema>
 
+function getSafeNext(search: string): string {
+  const next = new URLSearchParams(search).get('next')
+  if (!next) return '/dashboard'
+  if (!next.startsWith('/') || next.startsWith('//')) return '/dashboard'
+  return next
+}
+
 export function AuthPage() {
   const { session, loading } = useAuthContext()
+  const location = useLocation()
   const [view, setView] = useState<AuthView>('login')
   const [serverError, setServerError] = useState<string | null>(null)
+  const [emailSent, setEmailSent] = useState<string | null>(null)
 
   const loginForm = useForm<LoginForm>({ resolver: zodResolver(loginSchema) })
   const registerForm = useForm<RegisterForm>({ resolver: zodResolver(registerSchema) })
 
   if (loading) return null
-  if (session) return <Navigate to="/dashboard" replace />
+  if (session) return <Navigate to={getSafeNext(location.search)} replace />
 
   async function handleLogin(data: LoginForm) {
     setServerError(null)
@@ -48,17 +57,55 @@ export function AuthPage() {
 
   async function handleRegister(data: RegisterForm) {
     setServerError(null)
-    const { error } = await supabase.auth.signUp({
+    const { data: signUpData, error } = await supabase.auth.signUp({
       email: data.email,
       password: data.password,
       options: { data: { username: data.username } },
     })
-    if (error) setServerError(error.message)
+    if (error) {
+      setServerError(error.message)
+      return
+    }
+    if (!signUpData.session) {
+      setEmailSent(data.email)
+      registerForm.reset()
+    }
+  }
+
+  if (emailSent) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center bg-[#0a0a0e] p-4">
+        <div className="w-full max-w-sm rounded-2xl border border-[#2a2a38] bg-[#111117] p-6 text-center">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-green-500/10 text-green-400">
+            <Mail size={28} />
+          </div>
+          <h1 className="mb-2 text-lg font-semibold text-gray-100">Revisá tu correo</h1>
+          <p className="mb-1 text-sm text-gray-400">
+            Te enviamos un link de activación a
+          </p>
+          <p className="mb-5 break-all font-mono text-sm text-green-400">{emailSent}</p>
+          <p className="mb-6 text-xs text-gray-500">
+            Clickeá el link del email para activar tu cuenta. Si no lo ves, revisá la carpeta de spam.
+          </p>
+          <Button
+            variant="secondary"
+            fullWidth
+            onClick={() => {
+              setEmailSent(null)
+              setView('login')
+              setServerError(null)
+            }}
+          >
+            <ArrowLeft size={16} />
+            Volver
+          </Button>
+        </div>
+      </div>
+    )
   }
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[#0a0a0e] p-4">
-      {/* Hero */}
       <div className="mb-8 flex flex-col items-center gap-3">
         <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-green-500 to-emerald-700 shadow-lg shadow-green-500/30">
           <Trophy size={32} className="text-white" />
@@ -71,9 +118,7 @@ export function AuthPage() {
         </div>
       </div>
 
-      {/* Card */}
       <div className="w-full max-w-sm rounded-2xl border border-[#2a2a38] bg-[#111117] p-6">
-        {/* Tabs */}
         <div className="mb-6 flex rounded-xl bg-[#0a0a0e] p-1">
           {(['login', 'register'] as const).map((v) => (
             <button
@@ -151,7 +196,6 @@ export function AuthPage() {
             </Button>
           </form>
         )}
-
       </div>
     </div>
   )
