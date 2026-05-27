@@ -84,6 +84,17 @@
     "shareText": "Unite a mi quiniela del Mundial 2026:",
     "shareTitle": "Quiniela: {{name}}"
   },
+  "groupRules": {
+    "openButton": "Reglas",
+    "title": "Reglas de la quiniela",
+    "label": "Reglas",
+    "placeholder": "Escribí las reglas de tu quiniela: premios, apuestas, fechas límite, lo que quieras que tus participantes sepan.",
+    "emptyMember": "El admin todavía no definió reglas para esta quiniela.",
+    "emptyAdmin": "Todavía no definiste las reglas de tu quiniela. Agregá las que quieras: premios, apuestas, lo que sea.",
+    "add": "Agregar reglas",
+    "edit": "Editar reglas",
+    "errorMax": "Máximo 2000 caracteres"
+  },
   "joinByLink": {
     "verifying": "Verificando sesión...",
     "joining": "Uniéndote a la quiniela...",

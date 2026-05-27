@@ -84,6 +84,17 @@
     "shareText": "Join my World Cup 2026 pool:",
     "shareTitle": "Pool: {{name}}"
   },
+  "groupRules": {
+    "openButton": "Rules",
+    "title": "Pool rules",
+    "label": "Rules",
+    "placeholder": "Write your pool's rules: prizes, bets, deadlines, anything you want your players to know.",
+    "emptyMember": "The admin hasn't set any rules for this pool yet.",
+    "emptyAdmin": "You haven't set your pool's rules yet. Add whatever you want: prizes, bets, anything.",
+    "add": "Add rules",
+    "edit": "Edit rules",
+    "errorMax": "Maximum 2000 characters"
+  },
   "joinByLink": {
     "verifying": "Verifying session...",
     "joining": "Joining the pool...",

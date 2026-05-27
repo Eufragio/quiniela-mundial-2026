@@ -80,6 +80,24 @@ export function useCreateGroup() {
   })
 }
 
+export function useUpdateGroupRules(groupId: string) {
+  const qc = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (rules: string) => {
+      const { error } = await supabase
+        .from('groups')
+        .update({ rules: rules.trim() || null })
+        .eq('id', groupId)
+      if (error) throw error
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['group', groupId] })
+      qc.invalidateQueries({ queryKey: ['groups'] })
+    },
+  })
+}
+
 export function useJoinGroup() {
   const { user } = useAuthContext()
   const qc = useQueryClient()

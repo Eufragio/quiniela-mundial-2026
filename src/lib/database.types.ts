@@ -37,6 +37,7 @@ export type Database = {
           invite_code: string
           created_by: string
           created_at: string
+          rules: string | null
         }
         Insert: {
           id?: string
@@ -44,9 +45,11 @@ export type Database = {
           invite_code?: string
           created_by: string
           created_at?: string
+          rules?: string | null
         }
         Update: {
           name?: string
+          rules?: string | null
         }
         Relationships: [
           {

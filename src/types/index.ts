@@ -21,6 +21,7 @@ export interface Group {
   invite_code: string
   created_by: string
   created_at: string
+  rules: string | null
 }
 
 export interface GroupMember {
