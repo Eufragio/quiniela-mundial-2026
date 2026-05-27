@@ -100,7 +100,9 @@
     "saved": "Guardado",
     "vs": "vs",
     "makePrediction": "🎯 Hacer pronóstico",
-    "editPrediction": "✏️ Editar pronóstico"
+    "editPrediction": "✏️ Editar pronóstico",
+    "othersPredictionsOne": "{{count}} pronóstico del grupo",
+    "othersPredictionsOther": "{{count}} pronósticos del grupo"
   },
   "phases": {
     "group_stage": "Fase de grupos",
@@ -209,5 +211,48 @@
     "section7Title": "Cookies",
     "section7Body": "Solo usamos las cookies de sesión que pone Supabase para mantenerte autenticado. No usamos cookies de tracking, publicidad ni de terceros.",
     "backToLogin": "Volver al login"
+  },
+  "rules": {
+    "title": "Reglamento",
+    "subtitle": "Cómo se juega y cómo se puntúa",
+    "intro": "Esta quiniela es entre amigos: predecís los marcadores de los 104 partidos del Mundial 2026 y sumás puntos según qué tan cerca le pegaste. El que más puntos junta, gana. Así de fácil.",
+    "howTitle": "Cómo se juega",
+    "how1": "Creá una quiniela o unite a la de un amigo con el código de invitación.",
+    "how2": "Antes de cada partido, cargá tu pronóstico: cuántos goles hace cada equipo.",
+    "how3": "Cuando el partido termina, la app calcula tus puntos automáticamente y actualiza el ranking.",
+    "scoringTitle": "Cómo se puntúa",
+    "scoringIntro": "Cada partido te puede dar:",
+    "scoringExact": "Marcador exacto: le pegaste al resultado clavado (ej: predijiste 2-1 y salió 2-1).",
+    "scoringResult": "Resultado correcto: acertaste quién ganó o si fue empate, pero no el marcador exacto (ej: predijiste 2-0 y salió 1-0).",
+    "scoringMiss": "Fallaste: no acertaste ni el ganador.",
+    "scoringExample": "Ejemplo: si predecís 3-1 y el partido termina 2-0, ganás 1 punto porque acertaste que ganaba el local, aunque no el marcador exacto.",
+    "lockTitle": "Cierre de pronósticos",
+    "lockBody": "Podés cargar y editar tu pronóstico hasta el momento exacto en que arranca el partido. Una vez que empieza, queda bloqueado y no se puede cambiar. Esto vale para todos por igual y no depende del navegador: está protegido en la base de datos.",
+    "visibilityTitle": "Pronósticos de los demás",
+    "visibilityBody": "No podés ver lo que predijeron los otros participantes hasta que el partido arranque. Recién ahí se destapan los pronósticos de todos. Así nadie copia.",
+    "rankingTitle": "Ranking",
+    "rankingBody": "El ranking se ordena por puntos totales y se actualiza en tiempo real. Si dos personas quedan empatadas en puntos, desempata quien tenga más marcadores exactos; si siguen iguales, quien tenga más resultados correctos.",
+    "fairTitle": "Juego limpio",
+    "fairBody": "Esto es por diversión. La app no gestiona premios: si tu grupo juega por algo, eso lo arreglan entre ustedes. Jugá tranquilo y que gane el que más sabe de fútbol."
+  },
+  "footer": {
+    "rules": "Reglamento",
+    "about": "Acerca de",
+    "privacy": "Privacidad",
+    "madeBy": "Hecho por {{name}}"
+  },
+  "about": {
+    "title": "Acerca de",
+    "subtitle": "Quién hizo esta app y cómo pedir ayuda",
+    "madeBy": "Hecho por",
+    "role": "Desarrollador",
+    "portfolio": "Portafolio",
+    "supportTitle": "Soporte",
+    "supportBody": "¿Encontraste un error, algo no funciona o se te ocurre una mejora? Escribime directo. Toda sugerencia para hacer crecer la app es bienvenida.",
+    "contactEmail": "Email",
+    "supportNote": "Respondo lo más rápido que puedo.",
+    "supportEmailSubject": "Quiniela Mundial 2026 — Soporte",
+    "supportEmailBody": "Hola Marco,\n\nTe escribo sobre la app Quiniela Mundial 2026:\n\n",
+    "supportWhatsappText": "Hola Marco, te escribo sobre la Quiniela Mundial 2026: "
   }
 }

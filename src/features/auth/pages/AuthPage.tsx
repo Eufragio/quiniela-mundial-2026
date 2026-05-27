@@ -209,12 +209,19 @@ export function AuthPage() {
         )}
       </div>
 
-      <Link
-        to="/privacy"
-        className="mt-6 text-xs text-gray-600 transition-colors hover:text-gray-400"
-      >
-        {t('auth.privacyLink')}
-      </Link>
+      <div className="mt-6 flex items-center gap-3 text-xs text-gray-600">
+        <Link to="/rules" className="transition-colors hover:text-gray-400">
+          {t('footer.rules')}
+        </Link>
+        <span className="text-gray-700">·</span>
+        <Link to="/about" className="transition-colors hover:text-gray-400">
+          {t('footer.about')}
+        </Link>
+        <span className="text-gray-700">·</span>
+        <Link to="/privacy" className="transition-colors hover:text-gray-400">
+          {t('auth.privacyLink')}
+        </Link>
+      </div>
     </div>
   )
 }

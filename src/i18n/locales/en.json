@@ -100,7 +100,9 @@
     "saved": "Saved",
     "vs": "vs",
     "makePrediction": "🎯 Make prediction",
-    "editPrediction": "✏️ Edit prediction"
+    "editPrediction": "✏️ Edit prediction",
+    "othersPredictionsOne": "{{count}} group prediction",
+    "othersPredictionsOther": "{{count}} group predictions"
   },
   "phases": {
     "group_stage": "Group stage",
@@ -209,5 +211,48 @@
     "section7Title": "Cookies",
     "section7Body": "We only use the session cookies set by Supabase to keep you logged in. No tracking, advertising, or third-party cookies.",
     "backToLogin": "Back to login"
+  },
+  "rules": {
+    "title": "Rules",
+    "subtitle": "How to play and how scoring works",
+    "intro": "This pool is between friends: you predict the scores of all 104 matches of the 2026 World Cup and earn points based on how close you get. Whoever racks up the most points wins. Simple as that.",
+    "howTitle": "How to play",
+    "how1": "Create a pool or join a friend's with the invite code.",
+    "how2": "Before each match, submit your prediction: how many goals each team scores.",
+    "how3": "When the match ends, the app calculates your points automatically and updates the ranking.",
+    "scoringTitle": "How scoring works",
+    "scoringIntro": "Each match can earn you:",
+    "scoringExact": "Exact score: you nailed the result (e.g. you predicted 2-1 and it ended 2-1).",
+    "scoringResult": "Correct result: you got the winner or draw right, but not the exact score (e.g. you predicted 2-0 and it ended 1-0).",
+    "scoringMiss": "Missed: you didn't even get the winner right.",
+    "scoringExample": "Example: if you predict 3-1 and the match ends 2-0, you get 1 point because you correctly called the home win, even without the exact score.",
+    "lockTitle": "Prediction lock",
+    "lockBody": "You can submit and edit your prediction until the exact moment the match kicks off. Once it starts, it's locked and can't be changed. This applies to everyone equally and isn't enforced by the browser: it's protected at the database level.",
+    "visibilityTitle": "Other players' predictions",
+    "visibilityBody": "You can't see what other participants predicted until the match kicks off. Only then is everyone's prediction revealed. That way nobody copies.",
+    "rankingTitle": "Ranking",
+    "rankingBody": "The ranking is sorted by total points and updates in real time. If two players are tied on points, whoever has more exact scores ranks higher; if still tied, whoever has more correct results.",
+    "fairTitle": "Fair play",
+    "fairBody": "This is just for fun. The app doesn't manage prizes: if your group plays for something, that's between you. Play fair and may the best football mind win."
+  },
+  "footer": {
+    "rules": "Rules",
+    "about": "About",
+    "privacy": "Privacy",
+    "madeBy": "Made by {{name}}"
+  },
+  "about": {
+    "title": "About",
+    "subtitle": "Who built this app and how to get help",
+    "madeBy": "Made by",
+    "role": "Developer",
+    "portfolio": "Portfolio",
+    "supportTitle": "Support",
+    "supportBody": "Found a bug, something not working, or have an idea to improve the app? Reach out directly. Every suggestion to help the app grow is welcome.",
+    "contactEmail": "Email",
+    "supportNote": "I reply as fast as I can.",
+    "supportEmailSubject": "World Cup 2026 Pool — Support",
+    "supportEmailBody": "Hi Marco,\n\nI'm writing about the World Cup 2026 Pool app:\n\n",
+    "supportWhatsappText": "Hi Marco, I'm writing about the World Cup 2026 Pool: "
   }
 }

@@ -7,6 +7,7 @@ import { useFormatDate } from '@/hooks/useFormatDate'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { PredictionInput } from '@/features/predictions/components/PredictionInput'
+import { OthersPredictions } from '@/features/predictions/components/OthersPredictions'
 
 interface MatchCardProps {
   match: Match
@@ -128,6 +129,8 @@ export function MatchCard({ match, groupId, prediction }: MatchCardProps) {
           )}
         </div>
       )}
+
+      {locked && <OthersPredictions match={match} groupId={groupId} />}
 
       {match.venue && (
         <p className="mt-2 text-center text-xs text-gray-700">{match.venue}</p>
