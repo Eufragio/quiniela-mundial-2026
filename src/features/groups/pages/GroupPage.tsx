@@ -73,16 +73,29 @@ export function GroupPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
       <div className="mb-4 flex items-start justify-between">
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="text-xl font-bold text-gray-100">{group.name}</h1>
-            {isAdmin && <Badge variant="green" size="sm">{t('group.admin')}</Badge>}
-          </div>
-          <div className="mt-1 flex items-center gap-2">
-            <span className="font-mono text-sm text-gray-500">{group.invite_code}</span>
-            <button onClick={copyCode} className="text-gray-600 hover:text-green-400 transition-colors">
-              {copied ? <Check size={14} /> : <Copy size={14} />}
-            </button>
+        <div className="flex items-center gap-3">
+          {group.logo_url ? (
+            <img
+              src={group.logo_url}
+              alt={group.name}
+              className="h-12 w-12 shrink-0 rounded-xl border border-[#2a2a38] object-cover"
+            />
+          ) : (
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-green-500/20 to-emerald-700/20 border border-green-500/20">
+              <Trophy size={22} className="text-green-400" />
+            </div>
+          )}
+          <div>
+            <div className="flex items-center gap-2">
+              <h1 className="text-xl font-bold text-gray-100">{group.name}</h1>
+              {isAdmin && <Badge variant="green" size="sm">{t('group.admin')}</Badge>}
+            </div>
+            <div className="mt-1 flex items-center gap-2">
+              <span className="font-mono text-sm text-gray-500">{group.invite_code}</span>
+              <button onClick={copyCode} className="text-gray-600 hover:text-green-400 transition-colors">
+                {copied ? <Check size={14} /> : <Copy size={14} />}
+              </button>
+            </div>
           </div>
         </div>
         <div className="flex items-center gap-2">

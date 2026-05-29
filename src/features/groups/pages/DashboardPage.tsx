@@ -56,9 +56,17 @@ export function DashboardPage() {
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-green-500/20 to-emerald-700/20 border border-green-500/20">
-                    <Trophy size={20} className="text-green-400" />
-                  </div>
+                  {group.logo_url ? (
+                    <img
+                      src={group.logo_url}
+                      alt={group.name}
+                      className="h-11 w-11 shrink-0 rounded-xl border border-[#2a2a38] object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-green-500/20 to-emerald-700/20 border border-green-500/20">
+                      <Trophy size={20} className="text-green-400" />
+                    </div>
+                  )}
                   <div>
                     <p className="font-semibold text-gray-100">{group.name}</p>
                     <p className="mt-0.5 text-xs text-gray-500">
