@@ -22,6 +22,7 @@ export interface Group {
   created_by: string
   created_at: string
   rules: string | null
+  logo_url: string | null
 }
 
 export interface GroupMember {

@@ -98,6 +98,89 @@ export function useUpdateGroupRules(groupId: string) {
   })
 }
 
+const LOGO_ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/webp']
+const LOGO_MAX_BYTES = 500 * 1024
+
+export function useUploadGroupLogo(groupId: string) {
+  const qc = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (file: File) => {
+      if (!LOGO_ALLOWED_TYPES.includes(file.type)) {
+        throw new Error('Formato no soportado. Usá PNG, JPEG o WEBP.')
+      }
+      if (file.size > LOGO_MAX_BYTES) {
+        throw new Error('La imagen pesa más de 500 KB. Comprimila o usá una más chica.')
+      }
+
+      const { data: existing, error: listError } = await supabase.storage
+        .from('group-logos')
+        .list(groupId)
+      if (listError) throw listError
+
+      if (existing && existing.length > 0) {
+        const paths = existing.map((f) => `${groupId}/${f.name}`)
+        const { error: removeError } = await supabase.storage
+          .from('group-logos')
+          .remove(paths)
+        if (removeError) throw removeError
+      }
+
+      const ext = (file.name.split('.').pop() ?? 'png').toLowerCase()
+      const path = `${groupId}/logo.${ext}`
+
+      const { error: uploadError } = await supabase.storage
+        .from('group-logos')
+        .upload(path, file, { upsert: true, contentType: file.type })
+      if (uploadError) throw uploadError
+
+      const { data: urlData } = supabase.storage
+        .from('group-logos')
+        .getPublicUrl(path)
+      const publicUrl = `${urlData.publicUrl}?v=${Date.now()}`
+
+      const { error: updateError } = await supabase
+        .from('groups')
+        .update({ logo_url: publicUrl })
+        .eq('id', groupId)
+      if (updateError) throw updateError
+
+      return publicUrl
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['group', groupId] })
+      qc.invalidateQueries({ queryKey: ['groups'] })
+    },
+  })
+}
+
+export function useRemoveGroupLogo(groupId: string) {
+  const qc = useQueryClient()
+
+  return useMutation({
+    mutationFn: async () => {
+      const { data: existing } = await supabase.storage
+        .from('group-logos')
+        .list(groupId)
+
+      if (existing && existing.length > 0) {
+        const paths = existing.map((f) => `${groupId}/${f.name}`)
+        await supabase.storage.from('group-logos').remove(paths)
+      }
+
+      const { error } = await supabase
+        .from('groups')
+        .update({ logo_url: null })
+        .eq('id', groupId)
+      if (error) throw error
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['group', groupId] })
+      qc.invalidateQueries({ queryKey: ['groups'] })
+    },
+  })
+}
+
 export function useJoinGroup() {
   const { user } = useAuthContext()
   const qc = useQueryClient()

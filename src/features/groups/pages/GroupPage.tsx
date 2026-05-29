@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
-import { Share2, Users, Copy, Check, List, Trophy, ScrollText } from 'lucide-react'
+import { Share2, Users, Copy, Check, List, Trophy, ScrollText, ImagePlus } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useGroup, useGroupMembers } from '@/hooks/useGroups'
 import { useMatches } from '@/hooks/useMatches'
@@ -8,6 +8,7 @@ import { useGroupPredictions } from '@/hooks/usePredictions'
 import { useAuthContext } from '@/features/auth/AuthContext'
 import { MatchCard } from '@/features/matches/components/MatchCard'
 import { GroupRulesModal } from '@/features/groups/components/GroupRulesModal'
+import { GroupLogoModal } from '@/features/groups/components/GroupLogoModal'
 import { Badge } from '@/components/ui/Badge'
 import { Avatar } from '@/components/ui/Avatar'
 import type { Phase } from '@/types'
@@ -31,6 +32,7 @@ export function GroupPage() {
   const [tab, setTab] = useState<Tab>('matches')
   const [copied, setCopied] = useState(false)
   const [rulesOpen, setRulesOpen] = useState(false)
+  const [logoOpen, setLogoOpen] = useState(false)
   const [filterPhase, setFilterPhase] = useState<Phase | 'all'>('group_stage')
 
   const { data: group, isLoading: groupLoading } = useGroup(groupId!)
@@ -84,6 +86,15 @@ export function GroupPage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          {isAdmin && (
+            <button
+              onClick={() => setLogoOpen(true)}
+              className="flex items-center gap-1.5 rounded-xl bg-[#1a1a22] px-3 py-2 text-xs font-medium text-gray-400 hover:text-gray-200 transition-colors border border-[#2a2a38]"
+            >
+              <ImagePlus size={13} />
+              {t('groupLogo.openButton')}
+            </button>
+          )}
           <button
             onClick={() => setRulesOpen(true)}
             className="flex items-center gap-1.5 rounded-xl bg-[#1a1a22] px-3 py-2 text-xs font-medium text-gray-400 hover:text-gray-200 transition-colors border border-[#2a2a38]"
@@ -179,6 +190,12 @@ export function GroupPage() {
         onClose={() => setRulesOpen(false)}
         group={group}
         isAdmin={isAdmin}
+      />
+
+      <GroupLogoModal
+        open={logoOpen}
+        onClose={() => setLogoOpen(false)}
+        group={group}
       />
     </div>
   )

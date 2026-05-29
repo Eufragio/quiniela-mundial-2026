@@ -95,6 +95,17 @@
     "edit": "Edit rules",
     "errorMax": "Maximum 2000 characters"
   },
+  "groupLogo": {
+    "openButton": "Logo",
+    "title": "Pool logo",
+    "help": "PNG, JPEG or WEBP. Max 500 KB. Center-cropped to a square.",
+    "choose": "Choose image",
+    "chooseOther": "Choose another image",
+    "previewHint": "Preview — press Save to confirm",
+    "remove": "Remove logo",
+    "confirmRemove": "Sure you want to remove the logo? We'll go back to the initials avatar.",
+    "removeConfirmBtn": "Yes, remove it"
+  },
   "joinByLink": {
     "verifying": "Verifying session...",
     "joining": "Joining the pool...",

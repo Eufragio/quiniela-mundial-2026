@@ -38,6 +38,7 @@ export type Database = {
           created_by: string
           created_at: string
           rules: string | null
+          logo_url: string | null
         }
         Insert: {
           id?: string
@@ -46,10 +47,12 @@ export type Database = {
           created_by: string
           created_at?: string
           rules?: string | null
+          logo_url?: string | null
         }
         Update: {
           name?: string
           rules?: string | null
+          logo_url?: string | null
         }
         Relationships: [
           {

@@ -95,6 +95,17 @@
     "edit": "Editar reglas",
     "errorMax": "Máximo 2000 caracteres"
   },
+  "groupLogo": {
+    "openButton": "Logo",
+    "title": "Logo de la quiniela",
+    "help": "PNG, JPEG o WEBP. Máximo 500 KB. Se recorta al centro como cuadrado.",
+    "choose": "Elegir imagen",
+    "chooseOther": "Elegir otra imagen",
+    "previewHint": "Vista previa — apretá Guardar para confirmar",
+    "remove": "Quitar logo",
+    "confirmRemove": "¿Seguro que querés quitar el logo? Volvemos al avatar con iniciales.",
+    "removeConfirmBtn": "Sí, quitarlo"
+  },
   "joinByLink": {
     "verifying": "Verificando sesión...",
     "joining": "Uniéndote a la quiniela...",
