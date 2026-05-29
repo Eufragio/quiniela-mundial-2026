@@ -15,6 +15,9 @@ dist-ssr
 # Capturas locales (no se suben al repo público)
 captures/
 
+# Imágenes de prueba locales (subir logos a Supabase Storage, no commitear)
+test-assets/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
