@@ -34,12 +34,15 @@
     "checkEmailIntro": "Te enviamos un link de activación a",
     "checkEmailHelp": "Clickeá el link del email para activar tu cuenta. Si no lo ves, revisá la carpeta de spam.",
     "privacyLink": "Política de privacidad",
+    "continueWithGoogle": "Continuar con Google",
+    "orSeparator": "o",
     "errors": {
       "invalidEmail": "Email inválido",
       "passwordMin": "Mínimo 6 caracteres",
       "usernameMin": "Mínimo 3 caracteres",
       "usernameMax": "Máximo 20 caracteres",
-      "usernamePattern": "Solo letras, números y _"
+      "usernamePattern": "Solo letras, números y _",
+      "oauthFailed": "No pudimos iniciar sesión con Google. Probá de nuevo."
     }
   },
   "dashboard": {

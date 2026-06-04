@@ -34,12 +34,15 @@
     "checkEmailIntro": "We sent an activation link to",
     "checkEmailHelp": "Click the link in the email to activate your account. If you can't see it, check your spam folder.",
     "privacyLink": "Privacy policy",
+    "continueWithGoogle": "Continue with Google",
+    "orSeparator": "or",
     "errors": {
       "invalidEmail": "Invalid email",
       "passwordMin": "At least 6 characters",
       "usernameMin": "At least 3 characters",
       "usernameMax": "Max 20 characters",
-      "usernamePattern": "Letters, numbers and _ only"
+      "usernamePattern": "Letters, numbers and _ only",
+      "oauthFailed": "We couldn't sign you in with Google. Try again."
     }
   },
   "dashboard": {
