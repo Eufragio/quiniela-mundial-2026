@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { AuthProvider, useAuthContext } from '@/features/auth/AuthContext'
 import { AuthPage } from '@/features/auth/pages/AuthPage'
+import { ResetPasswordPage } from '@/features/auth/pages/ResetPasswordPage'
 import { Layout } from '@/components/layout/Layout'
 import { DashboardPage } from '@/features/groups/pages/DashboardPage'
 import { GroupPage } from '@/features/groups/pages/GroupPage'
@@ -52,6 +53,7 @@ export function App() {
         <AuthProvider>
           <Routes>
             <Route path="/auth" element={<AuthPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/join/:code" element={<JoinByLinkPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/rules" element={<RulesPage />} />

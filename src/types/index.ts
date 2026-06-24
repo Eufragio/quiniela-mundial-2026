@@ -77,4 +77,4 @@ export interface LeaderboardEntry {
   rank?: number
 }
 
-export type AuthView = 'login' | 'register'
+export type AuthView = 'login' | 'register' | 'forgot'

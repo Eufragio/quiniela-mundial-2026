@@ -33,6 +33,13 @@
     "checkEmailTitle": "Check your inbox",
     "checkEmailIntro": "We sent an activation link to",
     "checkEmailHelp": "Click the link in the email to activate your account. If you can't see it, check your spam folder.",
+    "forgotPassword": "Forgot your password?",
+    "forgotTitle": "Reset password",
+    "forgotIntro": "Enter your email and we'll send you a link to create a new password.",
+    "sendResetLink": "Send link",
+    "resetEmailSentIntro": "We sent a password reset link to",
+    "resetEmailSentHelp": "Click the link in the email to create a new password. If you can't see it, check your spam folder.",
+    "backToLogin": "Back to login",
     "privacyLink": "Privacy policy",
     "continueWithGoogle": "Continue with Google",
     "orSeparator": "or",
@@ -42,7 +49,27 @@
       "usernameMin": "At least 3 characters",
       "usernameMax": "Max 20 characters",
       "usernamePattern": "Letters, numbers and _ only",
-      "oauthFailed": "We couldn't sign you in with Google. Try again."
+      "oauthFailed": "We couldn't sign you in with Google. Try again.",
+      "resetFailed": "We couldn't send the email. Try again."
+    }
+  },
+  "resetPassword": {
+    "title": "New password",
+    "subtitle": "Choose a new password for your account.",
+    "newPasswordLabel": "New password",
+    "confirmPasswordLabel": "Confirm password",
+    "submit": "Update password",
+    "successTitle": "Password updated!",
+    "successBody": "You're now signed in with your new password.",
+    "goToDashboard": "Go to my pools",
+    "invalidLinkTitle": "Invalid or expired link",
+    "invalidLinkBody": "This recovery link has expired or was already used. Request a new one from the login page.",
+    "requestNewLink": "Request a new link",
+    "verifying": "Verifying link...",
+    "errors": {
+      "passwordMin": "At least 6 characters",
+      "passwordMismatch": "Passwords don't match",
+      "updateFailed": "We couldn't update your password. Try again."
     }
   },
   "dashboard": {

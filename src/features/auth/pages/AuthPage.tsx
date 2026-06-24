@@ -3,7 +3,7 @@ import { Navigate, useLocation, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Trophy, Mail, ArrowLeft } from 'lucide-react'
+import { Trophy, Mail, ArrowLeft, KeyRound } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { supabase } from '@/lib/supabase'
 import { useAuthContext } from '../AuthContext'
@@ -26,6 +26,7 @@ export function AuthPage() {
   const [view, setView] = useState<AuthView>('login')
   const [serverError, setServerError] = useState<string | null>(null)
   const [emailSent, setEmailSent] = useState<string | null>(null)
+  const [sentMode, setSentMode] = useState<'activation' | 'reset'>('activation')
 
   const loginSchema = useMemo(
     () =>
@@ -33,6 +34,11 @@ export function AuthPage() {
         email: z.string().email(t('auth.errors.invalidEmail')),
         password: z.string().min(6, t('auth.errors.passwordMin')),
       }),
+    [t],
+  )
+
+  const forgotSchema = useMemo(
+    () => z.object({ email: z.string().email(t('auth.errors.invalidEmail')) }),
     [t],
   )
 
@@ -50,9 +56,11 @@ export function AuthPage() {
 
   type LoginForm = z.infer<typeof loginSchema>
   type RegisterForm = z.infer<typeof registerSchema>
+  type ForgotForm = z.infer<typeof forgotSchema>
 
   const loginForm = useForm<LoginForm>({ resolver: zodResolver(loginSchema) })
   const registerForm = useForm<RegisterForm>({ resolver: zodResolver(registerSchema) })
+  const forgotForm = useForm<ForgotForm>({ resolver: zodResolver(forgotSchema) })
 
   const [oauthLoading, setOauthLoading] = useState(false)
 
@@ -96,9 +104,24 @@ export function AuthPage() {
       return
     }
     if (!signUpData.session) {
+      setSentMode('activation')
       setEmailSent(data.email)
       registerForm.reset()
     }
+  }
+
+  async function handleForgot(data: ForgotForm) {
+    setServerError(null)
+    const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    })
+    if (error) {
+      setServerError(t('auth.errors.resetFailed'))
+      return
+    }
+    setSentMode('reset')
+    setEmailSent(data.email)
+    forgotForm.reset()
   }
 
   if (emailSent) {
@@ -112,9 +135,13 @@ export function AuthPage() {
             <Mail size={28} />
           </div>
           <h1 className="mb-2 text-lg font-semibold text-gray-100">{t('auth.checkEmailTitle')}</h1>
-          <p className="mb-1 text-sm text-gray-400">{t('auth.checkEmailIntro')}</p>
+          <p className="mb-1 text-sm text-gray-400">
+            {sentMode === 'reset' ? t('auth.resetEmailSentIntro') : t('auth.checkEmailIntro')}
+          </p>
           <p className="mb-5 break-all font-mono text-sm text-green-400">{emailSent}</p>
-          <p className="mb-6 text-xs text-gray-500">{t('auth.checkEmailHelp')}</p>
+          <p className="mb-6 text-xs text-gray-500">
+            {sentMode === 'reset' ? t('auth.resetEmailSentHelp') : t('auth.checkEmailHelp')}
+          </p>
           <Button
             variant="secondary"
             fullWidth
@@ -127,6 +154,53 @@ export function AuthPage() {
             <ArrowLeft size={16} />
             {t('common.back')}
           </Button>
+        </div>
+      </div>
+    )
+  }
+
+  if (view === 'forgot') {
+    return (
+      <div className="relative flex min-h-screen flex-col items-center justify-center bg-[#0a0a0e] p-4">
+        <div className="absolute right-4 top-4">
+          <LanguageSwitcher />
+        </div>
+        <div className="w-full max-w-sm rounded-2xl border border-[#2a2a38] bg-[#111117] p-6">
+          <div className="mb-5 text-center">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-green-500/10 text-green-400">
+              <KeyRound size={28} />
+            </div>
+            <h1 className="mb-1 text-lg font-semibold text-gray-100">{t('auth.forgotTitle')}</h1>
+            <p className="text-sm text-gray-400">{t('auth.forgotIntro')}</p>
+          </div>
+
+          {serverError && (
+            <div className="mb-4 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-400">
+              {serverError}
+            </div>
+          )}
+
+          <form onSubmit={forgotForm.handleSubmit(handleForgot)} className="flex flex-col gap-4">
+            <Input
+              label={t('auth.email')}
+              type="email"
+              placeholder={t('auth.emailPlaceholder')}
+              error={forgotForm.formState.errors.email?.message}
+              {...forgotForm.register('email')}
+            />
+            <Button type="submit" fullWidth loading={forgotForm.formState.isSubmitting}>
+              {t('auth.sendResetLink')}
+            </Button>
+          </form>
+
+          <button
+            type="button"
+            onClick={() => { setView('login'); setServerError(null) }}
+            className="mt-5 flex w-full items-center justify-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-300"
+          >
+            <ArrowLeft size={16} />
+            {t('auth.backToLogin')}
+          </button>
         </div>
       </div>
     )
@@ -204,6 +278,13 @@ export function AuthPage() {
               error={loginForm.formState.errors.password?.message}
               {...loginForm.register('password')}
             />
+            <button
+              type="button"
+              onClick={() => { setView('forgot'); setServerError(null); forgotForm.reset() }}
+              className="-mt-1 self-end text-xs text-gray-500 transition-colors hover:text-green-400"
+            >
+              {t('auth.forgotPassword')}
+            </button>
             <Button
               type="submit"
               fullWidth

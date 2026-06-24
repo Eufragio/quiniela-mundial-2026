@@ -33,6 +33,13 @@
     "checkEmailTitle": "Revisá tu correo",
     "checkEmailIntro": "Te enviamos un link de activación a",
     "checkEmailHelp": "Clickeá el link del email para activar tu cuenta. Si no lo ves, revisá la carpeta de spam.",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "forgotTitle": "Recuperar contraseña",
+    "forgotIntro": "Ingresá tu email y te enviamos un link para crear una contraseña nueva.",
+    "sendResetLink": "Enviar link",
+    "resetEmailSentIntro": "Te enviamos un link para restablecer tu contraseña a",
+    "resetEmailSentHelp": "Clickeá el link del email para crear una contraseña nueva. Si no lo ves, revisá la carpeta de spam.",
+    "backToLogin": "Volver a iniciar sesión",
     "privacyLink": "Política de privacidad",
     "continueWithGoogle": "Continuar con Google",
     "orSeparator": "o",
@@ -42,7 +49,27 @@
       "usernameMin": "Mínimo 3 caracteres",
       "usernameMax": "Máximo 20 caracteres",
       "usernamePattern": "Solo letras, números y _",
-      "oauthFailed": "No pudimos iniciar sesión con Google. Probá de nuevo."
+      "oauthFailed": "No pudimos iniciar sesión con Google. Probá de nuevo.",
+      "resetFailed": "No pudimos enviar el email. Probá de nuevo."
+    }
+  },
+  "resetPassword": {
+    "title": "Nueva contraseña",
+    "subtitle": "Elegí una contraseña nueva para tu cuenta.",
+    "newPasswordLabel": "Nueva contraseña",
+    "confirmPasswordLabel": "Confirmar contraseña",
+    "submit": "Actualizar contraseña",
+    "successTitle": "¡Contraseña actualizada!",
+    "successBody": "Ya entraste con tu nueva contraseña.",
+    "goToDashboard": "Ir a mis quinielas",
+    "invalidLinkTitle": "Link inválido o vencido",
+    "invalidLinkBody": "Este link de recuperación expiró o ya se usó. Pedí uno nuevo desde el login.",
+    "requestNewLink": "Pedir un link nuevo",
+    "verifying": "Verificando link...",
+    "errors": {
+      "passwordMin": "Mínimo 6 caracteres",
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "updateFailed": "No pudimos actualizar la contraseña. Probá de nuevo."
     }
   },
   "dashboard": {
