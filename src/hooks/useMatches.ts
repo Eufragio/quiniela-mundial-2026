@@ -86,6 +86,32 @@ export function useUpdateMatchResult() {
   })
 }
 
+export function useUpdateMatchTeams() {
+  const qc = useQueryClient()
+
+  return useMutation({
+    mutationFn: async ({
+      matchId,
+      homeTeam,
+      awayTeam,
+    }: {
+      matchId: string
+      homeTeam: string
+      awayTeam: string
+    }) => {
+      const { error } = await supabase
+        .from('matches')
+        .update({ home_team: homeTeam, away_team: awayTeam })
+        .eq('id', matchId)
+      if (error) throw error
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['matches'] })
+      qc.invalidateQueries({ queryKey: ['match'] })
+    },
+  })
+}
+
 export function useAllMatchesGrouped() {
   return useQuery({
     queryKey: ['matches', 'all'],

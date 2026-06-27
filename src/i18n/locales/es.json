@@ -223,7 +223,11 @@
     "allPhases": "Todas las fases",
     "allStatus": "Todos",
     "noResults": "No hay partidos con esos filtros.",
-    "markFinished": "Marcar como finalizado"
+    "markFinished": "Marcar como finalizado",
+    "editTeams": "Editar equipos",
+    "selectTeam": "Elegí equipo",
+    "saveTeams": "Guardar equipos",
+    "cancel": "Cancelar"
   },
   "nav": {
     "home": "Inicio",

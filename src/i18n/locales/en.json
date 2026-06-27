@@ -223,7 +223,11 @@
     "allPhases": "All stages",
     "allStatus": "All",
     "noResults": "No matches match those filters.",
-    "markFinished": "Mark as finished"
+    "markFinished": "Mark as finished",
+    "editTeams": "Edit teams",
+    "selectTeam": "Select team",
+    "saveTeams": "Save teams",
+    "cancel": "Cancel"
   },
   "nav": {
     "home": "Home",

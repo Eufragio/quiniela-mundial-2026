@@ -84,24 +84,27 @@ export function getInitials(name: string): string {
     .slice(0, 2)
 }
 
+const TEAM_FLAGS: Record<string, string> = {
+  'Algeria': '🇩🇿', 'Argentina': '🇦🇷', 'Australia': '🇦🇺',
+  'Austria': '🇦🇹', 'Belgium': '🇧🇪', 'Bosnia and Herzegovina': '🇧🇦',
+  'Brazil': '🇧🇷', 'Cabo Verde': '🇨🇻', 'Canada': '🇨🇦',
+  'Colombia': '🇨🇴', 'Congo DR': '🇨🇩', 'Croatia': '🇭🇷',
+  'Curaçao': '🇨🇼', 'Czech Republic': '🇨🇿', 'Ecuador': '🇪🇨',
+  'Egypt': '🇪🇬', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'France': '🇫🇷',
+  'Germany': '🇩🇪', 'Ghana': '🇬🇭', 'Haiti': '🇭🇹',
+  'Iran': '🇮🇷', 'Iraq': '🇮🇶', 'Ivory Coast': '🇨🇮',
+  'Japan': '🇯🇵', 'Jordan': '🇯🇴', 'Mexico': '🇲🇽',
+  'Morocco': '🇲🇦', 'Netherlands': '🇳🇱', 'New Zealand': '🇳🇿',
+  'Norway': '🇳🇴', 'Panama': '🇵🇦', 'Paraguay': '🇵🇾',
+  'Portugal': '🇵🇹', 'Qatar': '🇶🇦', 'Saudi Arabia': '🇸🇦',
+  'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿', 'Senegal': '🇸🇳', 'South Africa': '🇿🇦',
+  'South Korea': '🇰🇷', 'Spain': '🇪🇸', 'Sweden': '🇸🇪',
+  'Switzerland': '🇨🇭', 'Tunisia': '🇹🇳', 'Turkey': '🇹🇷',
+  'Uruguay': '🇺🇾', 'USA': '🇺🇸', 'Uzbekistan': '🇺🇿',
+}
+
+export const WORLD_CUP_TEAMS = Object.keys(TEAM_FLAGS).sort((a, b) => a.localeCompare(b))
+
 export function getFlagEmoji(teamName: string): string {
-  const flags: Record<string, string> = {
-    'Algeria': '🇩🇿', 'Argentina': '🇦🇷', 'Australia': '🇦🇺',
-    'Austria': '🇦🇹', 'Belgium': '🇧🇪', 'Bosnia and Herzegovina': '🇧🇦',
-    'Brazil': '🇧🇷', 'Cabo Verde': '🇨🇻', 'Canada': '🇨🇦',
-    'Colombia': '🇨🇴', 'Congo DR': '🇨🇩', 'Croatia': '🇭🇷',
-    'Curaçao': '🇨🇼', 'Czech Republic': '🇨🇿', 'Ecuador': '🇪🇨',
-    'Egypt': '🇪🇬', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'France': '🇫🇷',
-    'Germany': '🇩🇪', 'Ghana': '🇬🇭', 'Haiti': '🇭🇹',
-    'Iran': '🇮🇷', 'Iraq': '🇮🇶', 'Ivory Coast': '🇨🇮',
-    'Japan': '🇯🇵', 'Jordan': '🇯🇴', 'Mexico': '🇲🇽',
-    'Morocco': '🇲🇦', 'Netherlands': '🇳🇱', 'New Zealand': '🇳🇿',
-    'Norway': '🇳🇴', 'Panama': '🇵🇦', 'Paraguay': '🇵🇾',
-    'Portugal': '🇵🇹', 'Qatar': '🇶🇦', 'Saudi Arabia': '🇸🇦',
-    'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿', 'Senegal': '🇸🇳', 'South Africa': '🇿🇦',
-    'South Korea': '🇰🇷', 'Spain': '🇪🇸', 'Sweden': '🇸🇪',
-    'Switzerland': '🇨🇭', 'Tunisia': '🇹🇳', 'Turkey': '🇹🇷',
-    'Uruguay': '🇺🇾', 'USA': '🇺🇸', 'Uzbekistan': '🇺🇿',
-  }
-  return flags[teamName] ?? '🏳️'
+  return TEAM_FLAGS[teamName] ?? '🏳️'
 }
