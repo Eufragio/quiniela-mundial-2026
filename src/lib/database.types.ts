@@ -39,6 +39,7 @@ export type Database = {
           created_at: string
           rules: string | null
           logo_url: string | null
+          includes_group_stage: boolean
         }
         Insert: {
           id?: string
@@ -48,11 +49,13 @@ export type Database = {
           created_at?: string
           rules?: string | null
           logo_url?: string | null
+          includes_group_stage?: boolean
         }
         Update: {
           name?: string
           rules?: string | null
           logo_url?: string | null
+          includes_group_stage?: boolean
         }
         Relationships: [
           {

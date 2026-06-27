@@ -23,6 +23,7 @@ export interface Group {
   created_at: string
   rules: string | null
   logo_url: string | null
+  includes_group_stage: boolean
 }
 
 export interface GroupMember {

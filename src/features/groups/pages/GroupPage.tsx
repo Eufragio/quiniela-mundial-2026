@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { Share2, Users, Copy, Check, List, Trophy, ScrollText, ImagePlus } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -40,6 +40,12 @@ export function GroupPage() {
   const { data: matches } = useMatches(filterPhase === 'all' ? undefined : filterPhase)
   const { data: predictions } = useGroupPredictions(groupId!)
 
+  useEffect(() => {
+    if (group && !group.includes_group_stage && filterPhase === 'group_stage') {
+      setFilterPhase('round_of_32')
+    }
+  }, [group, filterPhase])
+
   if (groupLoading) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-6">
@@ -51,6 +57,9 @@ export function GroupPage() {
 
   const isAdmin = group.created_by === profile?.id
   const inviteUrl = `${window.location.origin}/join/${group.invite_code}`
+  const availablePhases = group.includes_group_stage
+    ? PHASES
+    : PHASES.filter((p) => p !== 'group_stage')
 
   async function copyCode() {
     await navigator.clipboard.writeText(inviteUrl)
@@ -169,7 +178,7 @@ export function GroupPage() {
       ) : (
         <>
           <div className="mb-4 flex gap-2 overflow-x-auto pb-1">
-            {PHASES.map((value) => (
+            {availablePhases.map((value) => (
               <button
                 key={value}
                 onClick={() => setFilterPhase(value)}
