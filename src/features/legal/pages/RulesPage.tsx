@@ -63,6 +63,32 @@ export function RulesPage() {
             <p className="mt-3 text-gray-500">{t('rules.scoringExample')}</p>
           </Section>
 
+          <Section title={t('rules.knockoutTitle')}>
+            <p>{t('rules.knockoutBody')}</p>
+            <p className="mt-3 font-medium text-gray-200">{t('rules.knockoutExampleLead')}</p>
+            <ul className="mt-2 space-y-2">
+              <li className="flex items-center gap-3">
+                <span className="flex h-7 w-10 shrink-0 items-center justify-center rounded-lg bg-green-500/15 text-sm font-bold text-green-400">
+                  +3
+                </span>
+                <span>{t('rules.knockoutEx1')}</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="flex h-7 w-10 shrink-0 items-center justify-center rounded-lg bg-yellow-500/15 text-sm font-bold text-yellow-400">
+                  +1
+                </span>
+                <span>{t('rules.knockoutEx2')}</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="flex h-7 w-10 shrink-0 items-center justify-center rounded-lg bg-red-500/15 text-sm font-bold text-red-400">
+                  0
+                </span>
+                <span>{t('rules.knockoutEx3')}</span>
+              </li>
+            </ul>
+            <p className="mt-3 text-gray-500">{t('rules.knockoutNote')}</p>
+          </Section>
+
           <Section title={t('rules.lockTitle')}>
             <p>{t('rules.lockBody')}</p>
           </Section>
