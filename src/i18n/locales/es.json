@@ -154,7 +154,8 @@
     "makePrediction": "🎯 Hacer pronóstico",
     "editPrediction": "✏️ Editar pronóstico",
     "othersPredictionsOne": "{{count}} pronóstico del grupo",
-    "othersPredictionsOther": "{{count}} pronósticos del grupo"
+    "othersPredictionsOther": "{{count}} pronósticos del grupo",
+    "advancedOnPenalties": "Pasó {{team}} por penales"
   },
   "phases": {
     "group_stage": "Fase de grupos",
@@ -227,7 +228,9 @@
     "editTeams": "Editar equipos",
     "selectTeam": "Elegí equipo",
     "saveTeams": "Guardar equipos",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "penaltyWinnerLabel": "¿Quién avanzó por penales?",
+    "penaltyNone": "Sin penales"
   },
   "nav": {
     "home": "Inicio",

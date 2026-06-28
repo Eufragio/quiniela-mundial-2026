@@ -154,7 +154,8 @@
     "makePrediction": "🎯 Make prediction",
     "editPrediction": "✏️ Edit prediction",
     "othersPredictionsOne": "{{count}} group prediction",
-    "othersPredictionsOther": "{{count}} group predictions"
+    "othersPredictionsOther": "{{count}} group predictions",
+    "advancedOnPenalties": "{{team}} advanced on penalties"
   },
   "phases": {
     "group_stage": "Group stage",
@@ -227,7 +228,9 @@
     "editTeams": "Edit teams",
     "selectTeam": "Select team",
     "saveTeams": "Save teams",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "penaltyWinnerLabel": "Who advanced on penalties?",
+    "penaltyNone": "No penalties"
   },
   "nav": {
     "home": "Home",

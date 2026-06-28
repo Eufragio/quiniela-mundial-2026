@@ -78,6 +78,14 @@ export function MatchCard({ match, groupId, prediction }: MatchCardProps) {
             <span className="text-xl font-bold text-gray-600">{t('matchCard.vs')}</span>
           )}
 
+          {match.is_finished && match.penalty_winner && (
+            <span className="text-center text-[10px] font-medium text-gray-500">
+              {t('matchCard.advancedOnPenalties', {
+                team: match.penalty_winner === 'home' ? match.home_team : match.away_team,
+              })}
+            </span>
+          )}
+
           {prediction && (
             <div
               className={cn(

@@ -18,8 +18,14 @@ export function AdminMatchRow({ match }: Props) {
   const [home, setHome] = useState<number>(match.home_score ?? 0)
   const [away, setAway] = useState<number>(match.away_score ?? 0)
   const [finished, setFinished] = useState<boolean>(match.is_finished)
+  const [penaltyWinner, setPenaltyWinner] = useState<'home' | 'away' | null>(match.penalty_winner)
   const [savedFlash, setSavedFlash] = useState(false)
   const update = useUpdateMatchResult()
+
+  const isKnockout = match.phase !== 'group_stage'
+  const isDraw = home === away
+  const showPenalties = isKnockout && isDraw && !match.is_finished
+  const effectivePenaltyWinner = isDraw ? penaltyWinner : null
 
   const [editingTeams, setEditingTeams] = useState(false)
   const [homeTeam, setHomeTeam] = useState(match.home_team)
@@ -52,7 +58,8 @@ export function AdminMatchRow({ match }: Props) {
   const dirty =
     home !== (match.home_score ?? 0) ||
     away !== (match.away_score ?? 0) ||
-    finished !== match.is_finished
+    finished !== match.is_finished ||
+    effectivePenaltyWinner !== match.penalty_winner
 
   async function handleSave() {
     await update.mutateAsync({
@@ -60,6 +67,7 @@ export function AdminMatchRow({ match }: Props) {
       homeScore: home,
       awayScore: away,
       isFinished: finished,
+      penaltyWinner: effectivePenaltyWinner,
     })
     setSavedFlash(true)
     setTimeout(() => setSavedFlash(false), 1500)
@@ -203,6 +211,33 @@ export function AdminMatchRow({ match }: Props) {
               <Stepper value={away} onChange={setAway} disabled={match.is_finished} />
             </div>
           </div>
+
+          {showPenalties && (
+            <div className="mt-4 border-t border-[#2a2a38] pt-3">
+              <p className="mb-2 text-xs text-gray-400">{t('admin.penaltyWinnerLabel')}</p>
+              <div className="flex flex-wrap gap-1.5">
+                {[
+                  { val: null as 'home' | 'away' | null, label: t('admin.penaltyNone') },
+                  { val: 'home' as const, label: match.home_team },
+                  { val: 'away' as const, label: match.away_team },
+                ].map((opt) => (
+                  <button
+                    key={String(opt.val)}
+                    type="button"
+                    onClick={() => setPenaltyWinner(opt.val)}
+                    className={cn(
+                      'rounded-lg border px-2.5 py-1 text-xs font-medium transition-colors',
+                      penaltyWinner === opt.val
+                        ? 'border-green-500/30 bg-green-500/20 text-green-300'
+                        : 'border-[#2a2a38] bg-[#1a1a22] text-gray-400 hover:text-gray-200',
+                    )}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="mt-4 flex items-center justify-between border-t border-[#2a2a38] pt-3">
             <label className="flex items-center gap-2 text-xs text-gray-300">

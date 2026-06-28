@@ -110,6 +110,7 @@ export type Database = {
           away_score: number | null
           is_finished: boolean
           venue: string | null
+          penalty_winner: 'home' | 'away' | null
           created_at: string
         }
         Insert: {
@@ -123,6 +124,7 @@ export type Database = {
           away_score?: number | null
           is_finished?: boolean
           venue?: string | null
+          penalty_winner?: 'home' | 'away' | null
           created_at?: string
         }
         Update: {
@@ -135,6 +137,7 @@ export type Database = {
           away_score?: number | null
           is_finished?: boolean
           venue?: string | null
+          penalty_winner?: 'home' | 'away' | null
         }
         Relationships: []
       }

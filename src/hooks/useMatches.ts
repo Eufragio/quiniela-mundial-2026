@@ -62,11 +62,13 @@ export function useUpdateMatchResult() {
       homeScore,
       awayScore,
       isFinished,
+      penaltyWinner = null,
     }: {
       matchId: string
       homeScore: number | null
       awayScore: number | null
       isFinished: boolean
+      penaltyWinner?: 'home' | 'away' | null
     }) => {
       const { error } = await supabase
         .from('matches')
@@ -74,6 +76,7 @@ export function useUpdateMatchResult() {
           home_score: homeScore,
           away_score: awayScore,
           is_finished: isFinished,
+          penalty_winner: penaltyWinner,
         })
         .eq('id', matchId)
       if (error) throw error

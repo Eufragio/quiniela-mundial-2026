@@ -50,6 +50,7 @@ export interface Match {
   away_score: number | null
   is_finished: boolean
   venue: string | null
+  penalty_winner: 'home' | 'away' | null
 }
 
 export interface Prediction {
