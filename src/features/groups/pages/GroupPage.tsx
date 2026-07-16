@@ -11,20 +11,10 @@ import { GroupRulesModal } from '@/features/groups/components/GroupRulesModal'
 import { GroupLogoModal } from '@/features/groups/components/GroupLogoModal'
 import { Badge } from '@/components/ui/Badge'
 import { Avatar } from '@/components/ui/Avatar'
-import type { Phase } from '@/types'
+import { PHASES, type Phase } from '@/types'
 import { LeaderboardPage } from '@/features/leaderboard/pages/LeaderboardPage'
 
 type Tab = 'matches' | 'leaderboard'
-
-const PHASES: (Phase | 'all')[] = [
-  'group_stage',
-  'round_of_32',
-  'round_of_16',
-  'quarterfinal',
-  'semifinal',
-  'third_place',
-  'final',
-]
 
 export function GroupPage() {
   const { groupId } = useParams<{ groupId: string }>()

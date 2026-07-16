@@ -4,19 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { useMatches } from '@/hooks/useMatches'
 import { Card } from '@/components/ui/Card'
 import { AdminMatchRow } from '@/features/admin/components/AdminMatchRow'
-import type { Phase } from '@/types'
+import { PHASES, type Phase } from '@/types'
 
 type StatusFilter = 'all' | 'pending' | 'finished'
-
-const PHASES: Phase[] = [
-  'group_stage',
-  'round_of_32',
-  'round_of_16',
-  'quarterfinal',
-  'semifinal',
-  'third_place',
-  'final',
-]
 
 export function AdminPage() {
   const { t } = useTranslation()

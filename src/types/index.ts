@@ -1,11 +1,14 @@
-export type Phase =
-  | 'group_stage'
-  | 'round_of_32'
-  | 'round_of_16'
-  | 'quarterfinal'
-  | 'semifinal'
-  | 'third_place'
-  | 'final'
+export const PHASES = [
+  'group_stage',
+  'round_of_32',
+  'round_of_16',
+  'quarterfinal',
+  'semifinal',
+  'third_place',
+  'final',
+] as const
+
+export type Phase = (typeof PHASES)[number]
 
 export interface Profile {
   id: string
