@@ -2,7 +2,6 @@ import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { format, formatDistanceToNow, isPast, isFuture, type Locale } from 'date-fns'
 import { es, enUS } from 'date-fns/locale'
-import { PHASES, type Phase } from '@/types'
 
 const LOCALES: Record<string, Locale> = { es, en: enUS }
 
@@ -44,10 +43,6 @@ export function isMatchLocked(matchDate: string): boolean {
 
 export function isMatchUpcoming(matchDate: string): boolean {
   return isFuture(new Date(matchDate))
-}
-
-export function getPhaseOrder(phase: string): number {
-  return PHASES.indexOf(phase as Phase) + 1
 }
 
 export function calcPredictionPoints(
