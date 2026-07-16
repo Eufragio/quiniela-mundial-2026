@@ -22,6 +22,7 @@ const PHASES: (Phase | 'all')[] = [
   'round_of_16',
   'quarterfinal',
   'semifinal',
+  'third_place',
   'final',
 ]
 
